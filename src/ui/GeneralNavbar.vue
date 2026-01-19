@@ -6,8 +6,8 @@ import { Icon } from "@iconify/vue"
 const mobileOpen = ref(false)
 const navLinks = ref([
   { path: "/", label: "Home" },
-  { path: "/shop", label: "Shop" },
-  { path: "/catalog", label: "Catalog" },
+  { path: "/collections/all", label: "Shop" },
+  { path: "/collections", label: "Catalog" },
   { path: "/blog", label: "Blog" },
 ])
 

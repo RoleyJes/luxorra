@@ -4,7 +4,7 @@ import FooterCompanies from "./FooterCompanies.vue"
 import FooterSocials from "./FooterSocials.vue"
 
 const links = ref([
-  { path: "/search", label: "Search" },
+  { path: "/", label: "Search" },
   { path: "/", label: "About" },
   { path: "/", label: "Contact" },
   { path: "/", label: "Pollicy" },

@@ -1,3 +1,4 @@
+import Blog from "@/pages/Blog.vue"
 import Cart from "@/pages/Cart.vue"
 import Catalog from "@/pages/Catalog.vue"
 import Checkout from "@/pages/Checkout.vue"
@@ -21,11 +22,15 @@ const router = createRouter({
         },
         {
           path: "collections",
+          component: Catalog,
+        },
+        {
+          path: "collections/:all",
           component: Shop,
         },
         {
-          path: "catalog",
-          component: Catalog,
+          path: "blog",
+          component: Blog,
         },
         // {
         //   path: 'products/:id',

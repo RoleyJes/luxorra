@@ -47,7 +47,7 @@ function scrollPrev() {
       >
         <Icon
           icon="hugeicons:less-than"
-          class="size-8 text-neutral-300 transition-all duration-300 hover:text-brand-primary md:size-14 lg:size-18 xl:text-[#e7e7e7]"
+          class="size-7 text-neutral-300 transition-all duration-300 hover:text-brand-primary md:size-14 lg:size-18 xl:text-[#e7e7e7]"
         />
       </button>
       <button
@@ -56,7 +56,7 @@ function scrollPrev() {
       >
         <Icon
           icon="hugeicons:greater-than"
-          class="size-8 text-neutral-300 transition-all duration-300 hover:text-brand-primary md:size-14 lg:size-18 xl:text-[#e7e7e7]"
+          class="size-7 text-neutral-300 transition-all duration-300 hover:text-brand-primary md:size-14 lg:size-18 xl:text-[#e7e7e7]"
         />
       </button>
     </div>
