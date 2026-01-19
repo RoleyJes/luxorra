@@ -2,7 +2,7 @@ import { ref } from "vue"
 import { defineStore } from "pinia"
 
 export const useProductsStore = defineStore("products", () => {
-  const products = ref(null)
+  const products = ref([])
   const loading = ref(false)
   const error = ref(null)
 

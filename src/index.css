@@ -41,3 +41,7 @@
   --shadow-sm: 0px 2px 5px #0003;
   --shadow-md: -2px 2px 81px -27px rgba(0, 0, 0, 0.3);
 }
+
+button {
+  cursor: pointer;
+}

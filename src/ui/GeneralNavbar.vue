@@ -51,17 +51,17 @@ function toggleMobile() {
       </nav>
 
       <!-- icons -->
-      <div class="flex items-center space-x-3 text-gray-700 md:space-x-6">
-        <button class="text-xl transition hover:text-orange-500">
+      <div class="flex items-center space-x-3 text-brand-primary md:space-x-6">
+        <button class="text-xl">
           <Icon icon="mdi:search" class="size-5" />
         </button>
-        <button class="text-xl transition hover:text-orange-500">
-          <Icon icon="mdi:heart-outline" class="size-5" />
-        </button>
-        <button class="text-xl transition hover:text-orange-500">
+        <button class="text-xl">
           <Icon icon="mdi:user" class="size-5" />
         </button>
-        <button class="text-xl transition hover:text-orange-500">
+        <button class="text-xl">
+          <Icon icon="mdi:heart-outline" class="size-5" />
+        </button>
+        <button class="text-xl">
           <Icon icon="mdi:cart" class="size-5" />
         </button>
       </div>
