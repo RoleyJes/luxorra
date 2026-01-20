@@ -2,6 +2,7 @@
 import { ref } from "vue"
 import Logo from "./Logo.vue"
 import { Icon } from "@iconify/vue"
+import CatalogDropdown from "./CatalogDropdown.vue"
 
 const mobileOpen = ref(false)
 const navLinks = ref([
@@ -17,7 +18,7 @@ function toggleMobile() {
 </script>
 
 <template>
-  <header class="shadowsm sticky top-0 z-50 bg-white backdrop-blur-sm">
+  <header class="fixed top-0 z-50 w-full bg-white backdrop-blur-sm">
     <div class="mx-auto flex h-20 max-w-369 items-center justify-between px-4 md:px-10 lg:px-12">
       <!-- logo -->
       <div class="shrink-0">
@@ -35,7 +36,6 @@ function toggleMobile() {
           :to="link.path"
           class="group transition hover:text-brand-primary"
           >{{ link.label }}
-          <!-- <span class="mt-2 hidden h-px w-full group-hover:block" aria-hidden="true"></span> -->
         </RouterLink>
 
         <!-- dropdown example -->
@@ -71,6 +71,11 @@ function toggleMobile() {
         <Icon icon="mdi-light:menu" class="size-6" />
       </button>
     </div>
+
+    <!-- Catalog Dropdown -->
+    <!-- <div class="absolute w-full"> -->
+    <CatalogDropdown />
+    <!-- </div> -->
 
     <!-- mobile nav -->
     <transition name="slide">
