@@ -1,8 +1,8 @@
 <script setup>
-import { computed, onMounted, ref } from "vue"
-import { useProductsStore } from "@/stores/products"
+import { computed, ref } from "vue"
 import ProductCard from "@/ui/ProductCard.vue"
-import { storeToRefs } from "pinia"
+import ProductCardSkeleton from "@/ui/ProductCardSkeleton.vue"
+import { useProducts } from "@/composables/useProducts"
 
 const tabs = ref([
   { activeTab: "electronics", label: "New" },
@@ -11,19 +11,27 @@ const tabs = ref([
 ])
 
 const activeTab = ref(tabs.value[0].activeTab)
-const productsStore = useProductsStore()
 
-// This is how we destructure reactive properties from Pinia stores. For actions, we can destructure them directly from the store.
-const { products, loading, error } = storeToRefs(productsStore)
+const { isPending, data: products, error } = useProducts()
 
-onMounted(() => {
-  productsStore.fetchProducts()
+const filteredProducts = computed(() => {
+  if (!products.value) return []
+  return products.value.filter((p) => p.category === activeTab.value)
 })
 
-const filteredProducts = computed(() =>
-  products.value.filter((p) => p.category === activeTab.value),
-)
-console.log(filteredProducts.value)
+// ************ PINIA ****************
+// const productsStore = useProductsStore()
+
+// This is how we destructure reactive properties from Pinia stores. For actions, we can destructure them directly from the store.
+// const { products, loading, error } = storeToRefs(productsStore)
+
+// onMounted(() => {
+//   productsStore.fetchProducts()
+// })
+
+// const filteredProducts = computed(() =>
+//   products.value.filter((p) => p.category === activeTab.value),
+// )
 </script>
 
 <template>
@@ -43,14 +51,21 @@ console.log(filteredProducts.value)
       </button>
     </div>
 
-    <div v-if="loading">Fetching products...</div>
-    <div v-else-if="error">{{ error }}</div>
+    <!-- Skeletons -->
+    <div v-if="isPending" class="grid grid-cols-2 gap-6 lg:grid-cols-3">
+      <ProductCardSkeleton v-for="n in 6" :key="n" />
+    </div>
+
+    <!-- Error -->
+    <div v-else-if="error">Error: {{ error.message }}</div>
+
+    <!-- Products -->
     <div v-else class="grid grid-cols-2 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
       <div v-for="product in filteredProducts" :key="product.id">
         <ProductCard
           :product="product"
           :class="[
-            'transition-all duration-500',
+            'transition-all transition-discrete duration-500', // temporary stuff
             activeTab === product.category ? 'opacity-100' : 'opacity-0',
           ]"
         />

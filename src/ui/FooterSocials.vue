@@ -12,7 +12,7 @@ const socials = ref([
 </script>
 
 <template>
-  <ul class="flex items-center justify-end gap-5">
+  <ul class="flex items-center gap-5 lg:justify-end">
     <RouterLink v-for="(item, i) in socials" :key="i" :to="item.path">
       <Icon :icon="item.icon" class="size4 text-brand-primary" />
     </RouterLink>

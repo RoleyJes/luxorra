@@ -9,22 +9,27 @@ defineProps({
     type: String,
     // default: "medium",
   },
+  route: {
+    type: String,
+    required: false,
+  },
 })
 
 const types = {
-  medium: "text-[10px] md:text-sm py-1.5 leading-6 px-4 md:py-2.5 md:px-11.5",
+  medium: "text-sm md:text-sm py-2 leading-6 px-5 md:py-2.5 md:px-11.25",
 }
 </script>
 
 <template>
-  <button
+  <component
+    :is="route ? 'RouterLink' : 'button'"
     :class="[
       'inline-block cursor-pointer rounded-none border border-brand-primary bg-brand-primary font-medium tracking-[1px] text-white uppercase transition-all duration-300 hover:bg-[#0000] hover:text-brand-primary',
       types[type],
     ]"
   >
     {{ text }}
-  </button>
+  </component>
 </template>
 
 <style lang="scss" scoped></style>

@@ -40,6 +40,7 @@ function scrollPrev() {
       </div>
     </div>
 
+    <!-- Prev and next buttons -->
     <div>
       <button
         class="embla__prev emblaBtns absolute left-[0%] xl:left-2/12 xl:opacity-0 xl:group-hover:opacity-100"

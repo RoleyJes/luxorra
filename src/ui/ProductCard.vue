@@ -15,19 +15,32 @@
       <slot name="banner"></slot>
 
       <!-- Floating icons -->
-      <div class="absolute top-1.5 right-2.5 z-9 flex flex-col gap-1.25 md:top-5 md:right-5">
-        <SmallIconInBg
-          icon="mdi:heart-outline"
-          class="text-neutral-500 transition-all duration-500 hover:text-brand-primary lg:translate-y-1.5 lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:opacity-100"
-        />
-        <SmallIconInBg
-          icon="iconoir:shuffle"
-          class="text-neutral-500 transition-all duration-500 hover:text-brand-primary lg:translate-y-3.5 lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:opacity-100"
-        />
-        <SmallIconInBg
-          icon="mdi:search"
-          class="text-neutral-500 transition-all duration-500 hover:text-brand-primary lg:translate-y-4.5 lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:opacity-100"
-        />
+      <div
+        class="absolute top-1.5 right-2.5 z-9 flex flex-col gap-1.25 md:top-5 md:right-5 lg:items-end"
+      >
+        <div class="flex flex-row-reverse items-center gap-4">
+          <SmallIconInBg
+            icon="mdi:heart-outline"
+            class="peer text-neutral-500 transition-all duration-500 hover:text-brand-primary lg:translate-y-1.5 lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:opacity-100"
+          />
+          <Popup text="Add to wishlist" />
+        </div>
+
+        <div class="flex flex-row-reverse items-center gap-4">
+          <SmallIconInBg
+            icon="iconoir:shuffle"
+            class="peer text-neutral-500 transition-all duration-500 hover:text-brand-primary lg:translate-y-3.5 lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:opacity-100"
+          />
+          <Popup text="Compare" />
+        </div>
+
+        <div class="flex flex-row-reverse items-center gap-4">
+          <SmallIconInBg
+            icon="mdi:search"
+            class="peer text-neutral-500 transition-all duration-500 hover:text-brand-primary lg:translate-y-4.5 lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:opacity-100"
+          />
+          <Popup text="Quick View" />
+        </div>
       </div>
     </div>
 
@@ -35,7 +48,7 @@
     <div class="mt-3.75 md:mt-6.25">
       <div class="relative mb-2.5 text-base md:text-[17px] md:leading-[1.6] lg:mb-1">
         <h3
-          class="mb-3 transition-all duration-700 lg:mb-0 lg:group-hover:invisible lg:group-hover:-translate-y-3 lg:group-hover:opacity-0"
+          class="mb-3 line-clamp-1 transition-all duration-700 lg:mb-0 lg:group-hover:invisible lg:group-hover:-translate-y-3 lg:group-hover:opacity-0"
         >
           {{ title }}
         </h3>
@@ -55,6 +68,7 @@
 <script setup>
 import { toRefs } from "vue"
 import SmallIconInBg from "./SmallIconInBg.vue"
+import Popup from "./Popup.vue"
 
 const props = defineProps({
   product: {

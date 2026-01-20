@@ -1,5 +1,5 @@
 <script setup>
-import Button from "../Button.vue"
+import ButtonOrLink from "../ButtonOrLink.vue"
 
 defineProps({
   img: {
@@ -30,7 +30,11 @@ defineProps({
         Bottle Grinder, <br />Small, 2-Piecehe
       </p>
 
-      <Button text="shop now" type="medium" />
+      <!-- Button -->
+      <ButtonOrLink
+        text="shop now"
+        class="px-3.75 py-1.25 text-[10px] leading-6 md:px-11.25 md:py-2.5 md:text-sm"
+      />
     </section>
   </div>
 </template>

@@ -36,7 +36,7 @@ const companies = ref([
 </script>
 
 <template>
-  <ul class="mt-10 mb-5 flex items-center justify-end gap-2.5">
+  <ul class="lg:-10 mt-12 mb-5 flex items-center justify-center gap-2.5 lg:justify-end">
     <li v-for="item in companies" :key="item.title" :title="item.title">
       <component :is="item.icon" />
     </li>
