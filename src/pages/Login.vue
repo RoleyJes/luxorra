@@ -21,8 +21,10 @@ const breadcrumbs = [
       header="Login"
       description="Please login using account detail below."
       buttonText="Login"
-      other-page-path="/"
+      other-page-path="/account/forgot-password"
       other-page-text="Forgot your password?"
+      below-button-text="Create account"
+      below-button-path="/account/register"
     >
       <div class="space-y-5">
         <FormField inputType="text" placeholder="Email" autfocus aria-autocomplete="false" />

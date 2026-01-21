@@ -26,7 +26,6 @@ const breadcrumbs = [
     >
       <div class="space-y-5">
         <FormField inputType="text" placeholder="Email" autfocus aria-autocomplete="false" />
-        <FormField inputType="text" placeholder="Password" />
       </div>
     </RegistrationLayout>
   </main>

@@ -2,6 +2,7 @@ import Blog from "@/pages/Blog.vue"
 import Cart from "@/pages/Cart.vue"
 import Catalog from "@/pages/Catalog.vue"
 import Checkout from "@/pages/Checkout.vue"
+import ForgotPassword from "@/pages/ForgotPassword.vue"
 import Home from "@/pages/Home.vue"
 import Login from "@/pages/Login.vue"
 import Shop from "@/pages/Shop.vue"
@@ -65,6 +66,11 @@ const router = createRouter({
           path: "account/register",
           name: "signup",
           component: Signup,
+        },
+        {
+          path: "account/forgot-password",
+          name: "forgot-password",
+          component: ForgotPassword,
         },
 
         // {

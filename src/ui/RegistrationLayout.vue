@@ -60,11 +60,11 @@ defineProps({
   },
   belowButtonText: {
     type: String,
-    default: "Create account",
+    required: false,
   },
   belowButtonPath: {
     type: String,
-    default: "/account/register",
+    required: false,
   },
 })
 </script>

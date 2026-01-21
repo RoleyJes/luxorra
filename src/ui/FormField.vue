@@ -2,7 +2,7 @@
   <input
     :type="inputType"
     :placeholder="placeholder"
-    class="inline-block w-full placeholder:text-brand-primary bg-white px-5 py-2 text-sm text-brand-primary"
+    class="inline-block w-full bg-white px-5 py-2 text-sm text-brand-primary placeholder:text-brand-primary focus:outline-none"
   />
 </template>
 
