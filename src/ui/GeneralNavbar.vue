@@ -8,7 +8,7 @@ const mobileOpen = ref(false)
 const navLinks = ref([
   { path: "/", label: "Home" },
   { path: "/collections/all", label: "Shop" },
-  { path: "/collections", label: "Catalog" },
+  { path: "/collections", label: "Catalog", dropdown: true },
   { path: "/blog", label: "Blog" },
 ])
 
@@ -18,36 +18,39 @@ function toggleMobile() {
 </script>
 
 <template>
-  <header class="fixed top-0 z-50 w-full bg-white backdrop-blur-sm">
+  <header class="sticky top-0 z-50 w-full bg-white backdrop-blur-sm">
     <div class="mx-auto flex h-20 max-w-369 items-center justify-between px-4 md:px-10 lg:px-12">
       <!-- logo -->
       <div class="shrink-0">
         <RouterLink to="/">
-          <!-- <img src="/logo.png" alt="Logo" class="h-10 w-auto" /> -->
           <Logo />
         </RouterLink>
       </div>
 
       <!-- nav (desktop) -->
       <nav class="hidden space-x-12.5 text-base text-neutral-500 md:flex">
-        <RouterLink
-          v-for="(link, i) in navLinks"
-          :key="i"
-          :to="link.path"
-          class="group transition hover:text-brand-primary"
-          >{{ link.label }}
-        </RouterLink>
+        <div v-for="(link, i) in navLinks" :key="i" class="">
+          <RouterLink
+            v-if="!link.dropdown"
+            :to="link.path"
+            class="leading-20 underline-offset-4 transition duration-300 hover:text-brand-primary hover:underline"
+            >{{ link.label }}
+          </RouterLink>
 
-        <!-- dropdown example -->
-        <!-- <div class="group relative">
-          <button class="transition hover:text-orange-500">Shop</button>
-          <div
-            class="pointer-events-none absolute left-0 mt-2 w-40 border border-gray-200 bg-white opacity-0 shadow-lg transition group-hover:pointer-events-auto group-hover:opacity-100"
-          >
-            <a href="/catalog" class="block px-4 py-2 hover:bg-gray-50">All Products</a>
-            <a href="/new" class="block px-4 py-2 hover:bg-gray-50">New Arrivals</a>
+          <div v-else class="group">
+            <RouterLink
+              :to="link.path"
+              class="flex items-center gap-0.5 leading-20 underline-offset-4 transition duration-300 hover:text-brand-primary hover:underline"
+              >{{ link.label }}
+              <Icon icon="ion:chevron-down-outline" class="text-[#d0d0d0]" />
+            </RouterLink>
+
+            <!-- Catalog Dropdown -->
+            <CatalogDropdown
+              class="invisible opacity-0 transition-all duration-600 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100"
+            />
           </div>
-        </div> -->
+        </div>
       </nav>
 
       <!-- icons -->
@@ -71,11 +74,6 @@ function toggleMobile() {
         <Icon icon="mdi-light:menu" class="size-6" />
       </button>
     </div>
-
-    <!-- Catalog Dropdown -->
-    <!-- <div class="absolute w-full"> -->
-    <CatalogDropdown />
-    <!-- </div> -->
 
     <!-- mobile nav -->
     <transition name="slide">
