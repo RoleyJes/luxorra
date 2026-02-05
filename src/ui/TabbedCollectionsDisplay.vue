@@ -1,23 +1,27 @@
 <script setup>
-import { computed, ref } from "vue"
-import ProductCard from "@/ui/ProductCard.vue"
-import ProductCardSkeleton from "@/ui/ProductCardSkeleton.vue"
-import { useProducts } from "@/composables/useProducts"
+import { computed, ref } from "vue";
+import ProductCard from "@/ui/ProductCard.vue";
+import ProductCardSkeleton from "@/ui/ProductCardSkeleton.vue";
+import { useProducts } from "@/composables/useProducts";
 
 const tabs = ref([
-  { activeTab: "electronics", label: "New" },
-  { activeTab: "jewelery", label: "Popular" },
-  { activeTab: "women's clothing", label: "Sale" },
-])
+  { activeTab: "Fashion", label: "New" },
+  { activeTab: "Home & Living", label: "Popular" },
+  { activeTab: "Fashion", label: "Sale" },
 
-const activeTab = ref(tabs.value[0].activeTab)
+  // { activeTab: "electronics", label: "New" },
+  // { activeTab: "jewelery", label: "Popular" },
+  // { activeTab: "women's clothing", label: "Sale" },
+]);
 
-const { isPending, data: products, error } = useProducts()
+const activeTab = ref(tabs.value[0].activeTab);
+
+const { isPending, data: products, error } = useProducts();
 
 const filteredProducts = computed(() => {
-  if (!products.value) return []
-  return products.value.filter((p) => p.category === activeTab.value)
-})
+  if (!products.value) return [];
+  return products.value.filter((p) => p.category === activeTab.value);
+});
 
 // ************ PINIA ****************
 // const productsStore = useProductsStore()

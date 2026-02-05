@@ -6,17 +6,36 @@
     <!-- <div
       class="group relative flex h-43.75 items-center justify-center overflow-hidden bg-[#f5f5f5] md:h-[445.5px] lg:h-97.75 xl:h-123.25"
     > -->
+
+    <!-- This is the one i used for fake api products. I'm keeping it for the styling of the image. -->
+    <!-- <div
+      :class="[
+        'group pt-[130%] relative min-h-px overflow-hidden bg-[#f5f5f5] transition-all duration-250 ease-out',
+        imgContainerClass,
+      ]"
+    > -->
+    <!-- <div
+      :class="[
+        'group relative min-h-px overflow-hidden bg-[#f5f5f5] pt-[120%] transition-all duration-250 ease-out',
+        imgContainerClass,
+      ]"
+    > -->
     <div
       :class="[
-        'group relative min-h-px overflow-hidden bg-[#f5f5f5] pt-[130%] transition-all duration-250 ease-out',
+        'group relative min-h-px overflow-hidden pt-[120%] transition-all duration-250 ease-out',
         imgContainerClass,
       ]"
     >
       <img
         :src="image"
         alt="product on sale"
-        class="absolute top-1/2 left-1/2 size-1/2 -translate-x-1/2 -translate-y-1/2 scale-130 object-contain transition-all duration-900 xl:scale-110"
+        class="-translate-x1/2 -translate-y1/2 top1/2 left1/2 xl:scale90 absolute inset-0 size-full object-contain transition-all duration-900"
       />
+      <!-- <img
+        :src="image"
+        alt="product on sale"
+        class="absolute top-1/2 left-1/2 size-4/5 -translate-x-1/2 -translate-y-1/2 object-contain transition-all duration-900 xl:scale-110"
+      /> -->
       <!-- <img
         :src="image"
         alt="product on sale"
@@ -76,7 +95,7 @@
               : 'line-clamp-1 lg:mb-0 lg:group-hover:invisible lg:group-hover:-translate-y-3 lg:group-hover:opacity-0',
           ]"
         >
-          {{ title }}
+          {{ name }}
         </h3>
         <slot name="floating-option">
           <button
@@ -98,18 +117,18 @@
 </template>
 
 <script setup>
-import { computed, toRefs } from "vue"
-import SmallIconInBg from "./SmallIconInBg.vue"
-import Popup from "./Popup.vue"
-import { useProductsStore } from "@/stores/products"
-import { useWishlistStore } from "@/stores/wishlist"
-import { useCartStore } from "@/stores/cart"
+import { computed, toRefs } from "vue";
+import SmallIconInBg from "./SmallIconInBg.vue";
+import Popup from "./Popup.vue";
+import { useProductsStore } from "@/stores/products";
+import { useWishlistStore } from "@/stores/wishlist";
+import { useCartStore } from "@/stores/cart";
 
-const productsStore = useProductsStore()
-const wishlistStore = useWishlistStore()
-const cartStore = useCartStore()
+const productsStore = useProductsStore();
+const wishlistStore = useWishlistStore();
+const cartStore = useCartStore();
 
-const isWishlisted = computed(() => wishlistStore.wishlist.some((p) => p.id === product.value.id))
+const isWishlisted = computed(() => wishlistStore.wishlist.some((p) => p.id === product.value.id));
 
 const props = defineProps({
   product: {
@@ -120,10 +139,10 @@ const props = defineProps({
     type: String,
     required: false,
   },
-})
+});
 
-const { product } = toRefs(props)
-const { image, title, price } = toRefs(product.value)
+const { product } = toRefs(props);
+const { image, name, price } = toRefs(product.value);
 </script>
 
 <style lang="scss" scoped></style>

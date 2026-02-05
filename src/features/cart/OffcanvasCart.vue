@@ -1,14 +1,14 @@
 <script setup>
-import { ref } from "vue"
-import { useCartStore } from "@/stores/cart"
-import ButtonOrLink from "@/ui/ButtonOrLink.vue"
-import { Icon } from "@iconify/vue"
-import { AnimatePresence, motion } from "motion-v"
-import { useRouter } from "vue-router"
+import { ref } from "vue";
+import { useCartStore } from "@/stores/cart";
+import ButtonOrLink from "@/ui/ButtonOrLink.vue";
+import { Icon } from "@iconify/vue";
+import { useRouter } from "vue-router";
+import { AnimatePresence, motion } from "motion-v";
 
-const router = useRouter()
-const cartStore = useCartStore()
-const agreed = ref(false)
+const router = useRouter();
+const cartStore = useCartStore();
+const agreed = ref(false);
 </script>
 
 <template>
@@ -70,7 +70,7 @@ const agreed = ref(false)
               <!-- details -->
               <div class="space-y-2">
                 <div class="flex items-center justify-between gap-12">
-                  <p class="line-clamp-1 text-[15px] leading-[1.3]">{{ product.title }}</p>
+                  <p class="line-clamp-1 text-[15px] leading-[1.3]">{{ product.name }}</p>
                   <button @click="cartStore.deleteFromCart(product)">
                     <Icon
                       icon="iconoir:cancel"
@@ -106,8 +106,8 @@ const agreed = ref(false)
             @click="
               () => {
                 if (agreed) {
-                  cartStore.toggleOffcanvasCart()
-                  router.push({ name: 'checkout' })
+                  cartStore.toggleOffcanvasCart();
+                  router.push({ name: 'checkout' });
                 }
               }
             "
