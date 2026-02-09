@@ -13,7 +13,7 @@
 
         <!-- Buttons -->
         <div class="mt-7.5 flex items-center justify-between">
-          <ButtonOrLink type="submit" :text="buttonText" />
+          <ButtonOrLink type="submit" :text="buttonText" :disabled="disabled" />
           <RouterLink
             v-if="otherPagePath"
             :to="otherPagePath"
@@ -33,7 +33,7 @@
 </template>
 
 <script setup>
-import ButtonOrLink from "./ButtonOrLink.vue"
+import ButtonOrLink from "./ButtonOrLink.vue";
 
 defineProps({
   header: {
@@ -66,7 +66,10 @@ defineProps({
     type: String,
     required: false,
   },
-})
+  disabled: {
+    type: Boolean,
+  },
+});
 </script>
 
 <style lang="scss" scoped></style>

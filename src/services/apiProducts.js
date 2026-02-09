@@ -9,7 +9,6 @@ export async function fetchProducts() {
 
   try {
     const res = await api.get("/products");
-    // console.log(res.data.data.data);
     return res.data.data;
   } catch (error) {
     console.error("Error fetching products:", error);
