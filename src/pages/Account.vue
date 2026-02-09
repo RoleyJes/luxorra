@@ -13,6 +13,7 @@
 <script setup>
 import { useAuthStore } from "@/stores/auth";
 import BreadCrumbs from "@/ui/BreadCrumbs.vue";
+import { useQueryClient } from "@tanstack/vue-query";
 import { useRouter } from "vue-router";
 
 const authStore = useAuthStore();
@@ -28,7 +29,10 @@ const breadcrumbs = [
   },
 ];
 
+const queryClient = useQueryClient();
+
 function handleLogout() {
+  queryClient.removeQueries({ queryKey: ["user"] });
   authStore.logout();
   router.push({ name: "login" });
 }

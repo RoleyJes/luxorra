@@ -22,7 +22,8 @@ const api = axios.create({
 api.interceptors.response.use(
   (res) => res,
   (error) => {
-    const message = error.response?.data?.message || "Unexpected error";
+    const message =
+      error.response?.data?.message || error.response?.data?.error?.message || "Unexpected error";
 
     return Promise.reject(new Error(message));
   },

@@ -4,8 +4,6 @@ import BreadCrumbs from "@/ui/BreadCrumbs.vue";
 import FormField from "@/ui/FormField.vue";
 import RegistrationLayout from "@/ui/RegistrationLayout.vue";
 import { reactive } from "vue";
-import { useRouter } from "vue-router";
-import toast from "vue3-hot-toast";
 
 const breadcrumbs = [
   {
@@ -17,11 +15,9 @@ const breadcrumbs = [
   },
 ];
 
-const router = useRouter();
-
 const formData = reactive({
   name: "Toju",
-  email: "toju@test.com",
+  email: "toju@test8.com",
   password: "toju1234",
   phone_number: "1234567890",
   address: "toju street",
@@ -30,15 +26,7 @@ const formData = reactive({
 const { isSigningUp, signup } = useSignup();
 
 function handleSingup() {
-  signup(formData, {
-    onSuccess: () => {
-      toast.success("You've successfully registered");
-      router.push("/");
-    },
-    onError: (err) => {
-      toast.error(err.message);
-    },
-  });
+  signup(formData);
 }
 </script>
 

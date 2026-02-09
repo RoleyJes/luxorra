@@ -10,3 +10,10 @@ export async function signup(data) {
   //   throw error;
   // }
 }
+
+export async function login(data) {
+  const res = await api.post("/login", data);
+  return res.data;
+}
+
+export async function getUser() {}

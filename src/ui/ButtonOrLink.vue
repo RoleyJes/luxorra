@@ -28,7 +28,7 @@ const types = {
   <component
     :is="route ? 'RouterLink' : 'button'"
     :class="[
-      'inline-block cursor-pointer rounded-none border border-brand-primary bg-brand-primary font-medium tracking-[1px] text-white uppercase transition-all duration-300 hover:bg-[#0000] hover:text-brand-primary disabled:cursor-not-allowed disabled:opacity-50',
+      'inline-block cursor-pointer rounded-none border border-brand-primary bg-brand-primary font-medium tracking-[1px] text-white uppercase transition-all duration-300 hover:bg-transparent hover:text-brand-primary disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-brand-primary/50',
       types[variant],
     ]"
     :disabled="disabled"
