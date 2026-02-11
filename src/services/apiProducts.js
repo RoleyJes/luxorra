@@ -7,11 +7,11 @@ export async function fetchProducts() {
   // }
   // return res.json()
 
-  try {
-    const res = await api.get("/products");
-    return res.data.data;
-  } catch (error) {
-    console.error("Error fetching products:", error);
-    throw error;
-  }
+  // try {
+  const res = await api.get("/products");
+  return res.data.data;
+  // } catch (error) {
+  //   console.error("Error fetching products:", error);
+  //   throw error;
+  // }
 }

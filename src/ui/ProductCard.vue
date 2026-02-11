@@ -26,6 +26,11 @@
         imgContainerClass,
       ]"
     >
+      <!-- <img
+        :src="image"
+        alt="product on sale"
+        class="-translate-x1/2 -translate-y1/2 top1/2 left1/2 xl:scale90 absolute inset-0 aspect-9/11 size-full object-contain transition-all duration-900"
+      /> -->
       <img
         :src="image"
         alt="product on sale"
@@ -97,9 +102,11 @@
         >
           {{ name }}
         </h3>
+
+        <!-- Add to cart -->
         <slot name="floating-option">
           <button
-            @click="cartStore.addToCart(product)"
+            @click="() => handleAddToCart(product)"
             :class="[
               'inline-block text-brand-accent transition-all duration-700',
               productsStore.productsPerRow === 1
@@ -107,7 +114,7 @@
                 : 'lg:invisible lg:absolute lg:top-3 lg:opacity-0 lg:group-hover:visible lg:group-hover:top-0 lg:group-hover:opacity-100',
             ]"
           >
-            + Add to cart
+            {{ !isAddingToCart ? "+ Add to cart" : "Adding..." }}
           </button>
         </slot>
       </div>
@@ -122,11 +129,11 @@ import SmallIconInBg from "./SmallIconInBg.vue";
 import Popup from "./Popup.vue";
 import { useProductsStore } from "@/stores/products";
 import { useWishlistStore } from "@/stores/wishlist";
-import { useCartStore } from "@/stores/cart";
+import useCart from "@/composables/useCart";
 
 const productsStore = useProductsStore();
 const wishlistStore = useWishlistStore();
-const cartStore = useCartStore();
+const { addToCart, isAddingToCart } = useCart();
 
 const isWishlisted = computed(() => wishlistStore.wishlist.some((p) => p.id === product.value.id));
 
@@ -143,6 +150,10 @@ const props = defineProps({
 
 const { product } = toRefs(props);
 const { image, name, price } = toRefs(product.value);
+
+function handleAddToCart(product) {
+  addToCart({ product_id: product.id, quantity: 1 });
+}
 </script>
 
 <style lang="scss" scoped></style>

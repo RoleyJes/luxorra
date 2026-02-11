@@ -5,9 +5,11 @@ import ButtonOrLink from "@/ui/ButtonOrLink.vue";
 import { Icon } from "@iconify/vue";
 import { useRouter } from "vue-router";
 import { AnimatePresence, motion } from "motion-v";
+import useCart from "@/composables/useCart";
 
 const router = useRouter();
 const cartStore = useCartStore();
+const { cartLength, cartData, totalAmt } = useCart();
 const agreed = ref(false);
 </script>
 
@@ -47,14 +49,14 @@ const agreed = ref(false);
         </div>
 
         <!-- Empty cart -->
-        <h3 v-if="!cartStore.count" class="text-xl">Your cart is currently empty</h3>
+        <h3 v-if="cartLength < 1" class="text-xl">Your cart is currently empty</h3>
 
         <!-- Cart items -->
         <section v-else>
           <!-- Items -->
           <div class="mb-5 max-h-82.5 overflow-y-auto">
             <article
-              v-for="product in cartStore.cart"
+              v-for="product in cartData"
               :key="product.id"
               class="mb-6.25 flex gap-3.75 border-b border-b-neutral-border pb-6.25"
             >
@@ -79,7 +81,7 @@ const agreed = ref(false);
                   </button>
                 </div>
                 <p>
-                  <span class="text-xs text-neutral-500">{{ product.qty }} x </span>
+                  <span class="text-xs text-neutral-500">{{ product.quantity }} x </span>
                   <span class="text-sm font-semibold">{{ product.price }}</span>
                 </p>
               </div>
@@ -91,7 +93,7 @@ const agreed = ref(false);
             class="mb-7.5 flex items-center justify-between border-y border-y-neutral-border py-2.5 font-semibold"
           >
             <p>Total:</p>
-            <p>{{ cartStore.totalAmt }}</p>
+            <p>{{ totalAmt }}</p>
           </div>
 
           <!-- Agree -->

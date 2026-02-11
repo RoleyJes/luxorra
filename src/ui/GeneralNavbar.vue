@@ -8,11 +8,13 @@ import { useWishlistStore } from "@/stores/wishlist";
 import OffcanvasCart from "@/features/cart/OffcanvasCart.vue";
 import { useCartStore } from "@/stores/cart";
 import { useAuthStore } from "@/stores/auth";
+import useCart from "@/composables/useCart";
 
 const wishlistStore = useWishlistStore();
 const cartStore = useCartStore();
-
 const authStore = useAuthStore();
+
+const { cartLength } = useCart();
 
 const mobileOpen = ref(false);
 const navLinks = ref([
@@ -86,7 +88,7 @@ function toggleMobile() {
         <!-- Cart -->
         <button class="relative text-xl" @click="cartStore.toggleOffcanvasCart()">
           <Icon icon="mdi:cart" class="size-5" />
-          <FloatingNotification v-if="cartStore.count" :value="cartStore.count" />
+          <FloatingNotification :value="cartLength" />
         </button>
       </div>
 
