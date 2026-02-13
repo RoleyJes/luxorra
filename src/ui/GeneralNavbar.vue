@@ -81,7 +81,6 @@ function toggleMobile() {
 
         <!-- User -->
         <RouterLink :to="authStore.isAuthenticated ? '/account' : '/account/login'" class="text-xl">
-          <!-- <Icon icon="mdi:user" class="size-5" /> -->
           <Icon :icon="authStore.isAuthenticated ? 'mdi:user-add' : 'mdi:user'" class="size-5" />
         </RouterLink>
 
@@ -93,7 +92,11 @@ function toggleMobile() {
         </RouterLink>
 
         <!-- Cart -->
-        <button class="relative text-xl" @click="cartStore.toggleOffcanvasCart()">
+        <button
+          v-if="$route.path !== '/cart'"
+          class="relative text-xl"
+          @click="cartStore.toggleOffcanvasCart()"
+        >
           <Icon icon="mdi:cart" class="size-5" />
           <FloatingNotification :value="cartLength" />
         </button>

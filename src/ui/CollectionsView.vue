@@ -57,21 +57,21 @@
 </template>
 
 <script setup>
-import { useQuery } from "@tanstack/vue-query"
-import ProductCard from "./ProductCard.vue"
-import { fetchProducts } from "@/services/apiProducts"
-import ProductCardSkeleton from "./ProductCardSkeleton.vue"
-import ShopPageHeader from "./ShopPageHeader.vue"
-import BreadCrumbs from "./BreadCrumbs.vue"
-import { useRoute } from "vue-router"
-import { computed, onMounted, ref } from "vue"
-import { useProductsStore } from "@/stores/products"
-import SideFilters from "./SideFilters.vue"
+import { useQuery } from "@tanstack/vue-query";
+import ProductCard from "./ProductCard.vue";
+import { fetchAllProducts } from "@/services/apiProducts";
+import ProductCardSkeleton from "./ProductCardSkeleton.vue";
+import ShopPageHeader from "./ShopPageHeader.vue";
+import BreadCrumbs from "./BreadCrumbs.vue";
+import { useRoute } from "vue-router";
+import { computed, onMounted, ref } from "vue";
+import { useProductsStore } from "@/stores/products";
+import SideFilters from "./SideFilters.vue";
 
-const route = useRoute()
-const store = useProductsStore()
+const route = useRoute();
+const store = useProductsStore();
 
-const curOpen = ref(null)
+const curOpen = ref(null);
 
 const filterData = [
   {
@@ -122,15 +122,15 @@ const filterData = [
     description:
       "To increase your transaction limits, you may need to provide additional verification documents such as your government ID or proof of address.",
   },
-]
+];
 
 function updateGrid() {
-  store.updateProductsPerRow(window.innerWidth < 768 ? 2 : 3)
+  store.updateProductsPerRow(window.innerWidth < 768 ? 2 : 3);
 }
 
 onMounted(() => {
-  updateGrid()
-})
+  updateGrid();
+});
 
 const breadcrumbs = [
   {
@@ -140,9 +140,9 @@ const breadcrumbs = [
   {
     label: "Products",
   },
-]
+];
 
-const collection = computed(() => route.params.collection)
+const collection = computed(() => route.params.collection);
 
 const {
   isPending,
@@ -150,8 +150,8 @@ const {
   data: products,
 } = useQuery({
   queryKey: ["products"],
-  queryFn: fetchProducts,
-})
+  queryFn: fetchAllProducts,
+});
 </script>
 
 <style lang="scss" scoped></style>

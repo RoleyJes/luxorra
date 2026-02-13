@@ -1,27 +1,21 @@
 <script setup>
-import { computed, ref } from "vue";
+import { ref } from "vue";
 import ProductCard from "@/ui/ProductCard.vue";
 import ProductCardSkeleton from "@/ui/ProductCardSkeleton.vue";
 import { useProducts } from "@/composables/useProducts";
 
 const tabs = ref([
-  { activeTab: "Fashion", label: "New" },
-  { activeTab: "Home & Living", label: "Popular" },
-  { activeTab: "Fashion", label: "Sale" },
-
-  // { activeTab: "electronics", label: "New" },
-  // { activeTab: "jewelery", label: "Popular" },
-  // { activeTab: "women's clothing", label: "Sale" },
+  { tab: "new", label: "New" },
+  { tab: "popular", label: "Popular" },
+  { tab: "sale", label: "Sale" },
 ]);
 
-const activeTab = ref(tabs.value[0].activeTab);
+const { isFetchingByTab, tab: tabVQ, tabbedProducts } = useProducts();
 
-const { isPending, data: products, error } = useProducts();
-
-const filteredProducts = computed(() => {
-  if (!products.value) return [];
-  return products.value.filter((p) => p.category === activeTab.value);
-});
+// const filteredProducts = computed(() => {
+//   if (!products.value) return [];
+//   return products.value.filter((p) => p.category === activeTab.value);
+// });
 
 // ************ PINIA ****************
 // const productsStore = useProductsStore()
@@ -45,10 +39,14 @@ const filteredProducts = computed(() => {
       <button
         v-for="tab in tabs"
         :key="tab.label"
-        @click="activeTab = tab.activeTab"
+        @click="
+          () => {
+            tabVQ = tab.tab;
+          }
+        "
         :class="[
           'cursor-pointer text-[22px] leading-[1.2] transition-all duration-300 hover:text-brand-primary sm:text-4xl md:text-5xl',
-          activeTab === tab.activeTab ? 'text-brand-primary' : 'text-[#cccccc]',
+          tabVQ === tab.tab ? 'text-brand-primary' : 'text-[#cccccc]',
         ]"
       >
         {{ tab.label }}
@@ -56,22 +54,19 @@ const filteredProducts = computed(() => {
     </div>
 
     <!-- Skeletons -->
-    <div v-if="isPending" class="grid grid-cols-2 gap-6 lg:grid-cols-3">
+    <div v-if="isFetchingByTab" class="grid grid-cols-2 gap-6 lg:grid-cols-3">
       <ProductCardSkeleton v-for="n in 6" :key="n" />
     </div>
 
     <!-- Error -->
-    <div v-else-if="error">Error: {{ error.message }}</div>
+    <!-- <div v-else-if="error">Error: {{ error.message }}</div> -->
 
     <!-- Products -->
     <div v-else class="grid grid-cols-2 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
-      <div v-for="product in filteredProducts" :key="product.id">
+      <div v-for="product in tabbedProducts" :key="product.id">
         <ProductCard
           :product="product"
-          :class="[
-            'transition-all transition-discrete duration-500', // temporary stuff
-            activeTab === product.category ? 'opacity-100' : 'opacity-0',
-          ]"
+          :class="['transition-all transition-discrete duration-500']"
         />
       </div>
     </div>
