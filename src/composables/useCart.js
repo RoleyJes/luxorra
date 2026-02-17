@@ -1,5 +1,6 @@
 import {
   addToCart as addToCartApi,
+  clearCart as clearCartApi,
   deleteFromCart as deleteFromCartApi,
   getCart,
   updateCart as updateCartApi,
@@ -12,11 +13,17 @@ import toast from "vue3-hot-toast";
 export default function useCart() {
   const authStore = useAuthStore();
   const queryClient = useQueryClient();
+
+  // These are for determining the particular item being deleted or updated so the btns can be disabled
   const deletingId = ref(null);
   const updatingId = ref(null);
 
   // Fetch cart
-  const { isPending: isFetchingCart, data: cartData } = useQuery({
+  const {
+    isPending: isFetchingCart,
+    data: cartData,
+    error: fetchCartError,
+  } = useQuery({
     queryKey: ["cart"],
     queryFn: getCart,
     enabled: authStore.isAuthenticated,
@@ -34,8 +41,8 @@ export default function useCart() {
     },
   });
 
-  // Delete from cart
-  const { mutate: deleteFromCart } = useMutation({
+  // Delete from cart (The isDeleting is for the offCanvas btn that doesn't need a disabled state)
+  const { isPending: isDeleting, mutate: deleteFromCart } = useMutation({
     mutationFn: deleteFromCartApi,
     onMutate: (id) => {
       deletingId.value = id;
@@ -62,11 +69,19 @@ export default function useCart() {
       queryClient.invalidateQueries({ queryKey: ["cart"] });
     },
     onError: (err) => {
-      console.log(err);
       toast.error(err.message);
     },
     onSettled: () => {
       updatingId.value = null;
+    },
+  });
+
+  // Clear cart
+  const { mutate: clearCart, isPending: isClearingCart } = useMutation({
+    mutationFn: clearCartApi,
+    onSuccess: () => {
+      console.log("cleared");
+      queryClient.invalidateQueries({ queryKey: ["cart"] });
     },
   });
 
@@ -82,6 +97,7 @@ export default function useCart() {
 
   return {
     isFetchingCart,
+    fetchCartError,
     cartData,
     cartLength,
     isAddingToCart,
@@ -89,7 +105,10 @@ export default function useCart() {
     totalAmt,
     deleteFromCart,
     deletingId,
+    isDeleting,
     updatingId,
     updateCart,
+    clearCart,
+    isClearingCart,
   };
 }

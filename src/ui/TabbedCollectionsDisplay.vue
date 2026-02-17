@@ -70,24 +70,7 @@ const { isFetchingByTab, tab: tabVQ, tabbedProducts } = useProducts();
         />
       </div>
     </div>
-    <!-- <TransitionGroup
-      v-else
-      name="fade"
-      tag="div"
-      class="grid grid-cols-2 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3"
-    >
-      <ProductCard v-for="product in filteredProducts" :key="product.id" :product="product" />
-    </TransitionGroup> -->
   </section>
 </template>
 
-<style lang="css" scoped>
-/* .fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.1s ease;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-} */
-</style>
+<style lang="css" scoped></style>

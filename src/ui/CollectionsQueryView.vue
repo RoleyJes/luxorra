@@ -122,7 +122,7 @@ const { allProducts, isFetchingAllProducts } = useProducts();
       </div>
 
       <!-- Error -->
-      <div v-else-if="error">Error: {{ error.message }}</div>
+      <!-- <div v-else-if="error">Error: {{ error.message }}</div> -->
 
       <!-- Products -->
       <div

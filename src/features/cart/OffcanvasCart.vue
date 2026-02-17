@@ -10,7 +10,7 @@ import { formatCurrency } from "@/utils/helpers";
 
 const router = useRouter();
 const cartStore = useCartStore();
-const { cartLength, cartData, totalAmt } = useCart();
+const { cartLength, cartData, totalAmt, deleteFromCart, deletingId } = useCart();
 const agreed = ref(false);
 </script>
 
@@ -74,9 +74,11 @@ const agreed = ref(false);
               <div class="space-y-2">
                 <div class="flex items-center justify-between gap-12">
                   <p class="line-clamp-1 text-[15px] leading-[1.3]">{{ product.name }}</p>
-                  <button @click="cartStore.deleteFromCart(product)">
+                  <button @click="deleteFromCart(product.id)">
                     <Icon
-                      icon="iconoir:cancel"
+                      :icon="
+                        deletingId === product.id ? 'eos-icons:bubble-loading' : 'iconoir:cancel'
+                      "
                       class="text-base transition duration-300 hover:text-red-500"
                     />
                   </button>
@@ -115,7 +117,7 @@ const agreed = ref(false);
               }
             "
             text="checkout"
-            class="mb-3.75 w-full border-brand-accent! bg-brand-accent! hover:text-white! disabled:cursor-not-allowed! disabled:opacity-50"
+            class="mb-3.75 w-full border-brand-accent! bg-brand-accent! hover:text-white! disabled:text-white! disabled:opacity-50"
           />
 
           <ButtonOrLink

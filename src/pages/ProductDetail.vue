@@ -4,12 +4,13 @@ import BreadCrumbs from "@/ui/BreadCrumbs.vue";
 // import ProductCard from "@/ui/ProductCard.vue";
 import { useQuery } from "@tanstack/vue-query";
 import { computed, ref } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { formatCurrency } from "@/utils/helpers";
 import { Icon } from "@iconify/vue";
 import QuantityOptions from "@/ui/QuantityOptions.vue";
 import ButtonOrLink from "@/ui/ButtonOrLink.vue";
 
+const router = useRouter();
 const route = useRoute();
 const routeId = computed(() => route.params.id);
 // const routeId = ref(route.params.id);
@@ -208,7 +209,8 @@ const tabs = [
             </div>
             <button
               :disabled="!agreed"
-              class="w-full bg-[#ecd265] py-3 text-center text-black uppercase transition-all duration-200 ease-in-out hover:text-brand-primary disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-60"
+              @click="router.push({ name: 'checkout' })"
+              class="w-full bg-[#ecd265] py-3 text-center text-black uppercase transition-all duration-200 ease-in-out hover:text-brand-primary disabled:pointer-events-none disabled:cursor-not-allowed! disabled:opacity-60"
             >
               buy it now
             </button>

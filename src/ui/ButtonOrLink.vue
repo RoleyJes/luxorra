@@ -29,7 +29,7 @@ const types = {
     :is="route ? 'RouterLink' : 'button'"
     v-bind="route ? { to: route } : {}"
     :class="[
-      'inline-block cursor-pointer rounded-none border border-brand-primary bg-brand-primary text-center font-medium tracking-[1px] text-white uppercase transition-all duration-300 hover:bg-transparent hover:text-brand-primary disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-brand-primary/50',
+      'inline-block cursor-pointer rounded-none border border-brand-primary bg-brand-primary text-center font-medium tracking-[1px] text-white uppercase transition-all duration-300 hover:bg-transparent hover:text-brand-primary disabled:cursor-not-allowed! disabled:bg-brand-primary/30 disabled:text-brand-primary/50 disabled:hover:bg-brand-primary/30',
       types[variant],
     ]"
     :disabled="disabled"

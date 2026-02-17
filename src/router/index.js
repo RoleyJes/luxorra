@@ -31,6 +31,7 @@ const router = createRouter({
           name: "collections",
           component: Catalog,
         },
+        // This is because both pages are different
         {
           path: "collections/:collection",
           name: "collections-query",
