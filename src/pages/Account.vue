@@ -5,19 +5,14 @@
     <div class="flex items-end justify-between border-b border-b-[#ddd] pb-2.5">
       <h1 class="text-4xl">My Account</h1>
 
-      <button @click="handleLogout" class="text-brand-accent">Logout</button>
+      <button @click="logout" class="text-brand-accent">Logout</button>
     </div>
   </main>
 </template>
 
 <script setup>
-import { useAuthStore } from "@/stores/auth";
+import { useLogout } from "@/composables/useLogout";
 import BreadCrumbs from "@/ui/BreadCrumbs.vue";
-import { useQueryClient } from "@tanstack/vue-query";
-import { useRouter } from "vue-router";
-
-const authStore = useAuthStore();
-const router = useRouter();
 
 const breadcrumbs = [
   {
@@ -29,13 +24,7 @@ const breadcrumbs = [
   },
 ];
 
-const queryClient = useQueryClient();
-
-function handleLogout() {
-  queryClient.removeQueries({ queryKey: ["user"] });
-  authStore.logout();
-  router.push({ name: "login" });
-}
+const { logout } = useLogout();
 </script>
 
 <style lang="scss" scoped></style>

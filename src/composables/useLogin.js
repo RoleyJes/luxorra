@@ -13,7 +13,7 @@ export function useLogin() {
     mutationFn: loginApi,
 
     onSuccess: (data) => {
-      // This is for directly setting the query with the key "user" to the returnded data. This is different from invalidateQuries becuase it doesn't refetch, it just sets the query's data to this one so it doesn't have to refetch and every component using the "user" query gets updated instantly.
+      // This is for directly setting the query with the key "user" to the returned data. This is different from invalidateQuries becuase it doesn't refetch, it just sets the query's data to this one so it doesn't have to refetch and every component using the "user" query gets updated instantly.
       queryClient.setQueryData(["user"], data.user);
       authStore.setToken(data.token);
       router.push({ name: "account" });

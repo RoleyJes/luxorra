@@ -20,3 +20,9 @@ export async function getUser() {
   const res = await api.get("/user");
   return res.data;
 }
+
+export async function logout() {
+  const res = await api.post("/logout");
+  console.log(res.data);
+  return res.data;
+}

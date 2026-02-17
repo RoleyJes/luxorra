@@ -3,7 +3,7 @@ import { Icon } from "@iconify/vue";
 import { ref } from "vue";
 
 const socials = ref([
-  { path: "/", icon: "ion:logo-twitter" },
+  { path: "/", icon: "prime:twitter" },
   { path: "/", icon: "brandico:instagram-filled" },
   { path: "/", icon: "ion:logo-linkedin" },
   { path: "/", icon: "ion:logo-youtube" },
