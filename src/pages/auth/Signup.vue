@@ -16,8 +16,9 @@ const breadcrumbs = [
 ];
 
 const formData = reactive({
-  name: "Toju",
-  email: "toju@test8.com",
+  firstName: "Toju",
+  lastName: "Tesimi",
+  email: "toju@test15.com",
   password: "toju1234",
   phone_number: "1234567890",
   address: "toju street",
@@ -26,7 +27,7 @@ const formData = reactive({
 const { isSigningUp, signup } = useSignup();
 
 function handleSingup() {
-  signup(formData);
+  signup({ ...formData, name: `${formData.firstName + " " + formData.lastName}` });
 }
 </script>
 
@@ -43,18 +44,20 @@ function handleSingup() {
       :disabled="isSigningUp"
     >
       <div class="space-y-5">
-        <!-- <FormField
-          inputType="text"
-          placeholder="First Name"
-          label="First Name"
-          inputId="firstName"
-        /> -->
         <FormField
           inputType="text"
-          placeholder="Name"
-          label="Name"
-          v-model="formData.name"
-          inputId="name"
+          placeholder="First Name"
+          v-model="formData.firstName"
+          label="First Name"
+          inputId="firstName"
+          :disabled="isSigningUp"
+        />
+        <FormField
+          inputType="text"
+          placeholder="Last Name"
+          label="Last Name"
+          v-model="formData.lastName"
+          inputId="lastName"
           :disabled="isSigningUp"
         />
         <FormField

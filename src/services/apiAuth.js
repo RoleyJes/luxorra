@@ -18,7 +18,7 @@ export async function login(data) {
 
 export async function getUser() {
   const res = await api.get("/user");
-  return res.data;
+  return res.data.user;
 }
 
 export async function logout() {

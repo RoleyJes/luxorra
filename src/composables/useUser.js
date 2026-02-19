@@ -6,11 +6,11 @@ import { computed } from "vue";
 export function useUser() {
   const authStore = useAuthStore();
 
-  const { isPending, data: user } = useQuery({
+  const { isPending: isFetchingUser, data: user } = useQuery({
     queryKey: ["user"],
     queryFn: getUser,
     enabled: computed(() => authStore.isAuthenticated),
   });
 
-  return { isPending, user };
+  return { user, isFetchingUser };
 }

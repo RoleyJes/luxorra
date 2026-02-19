@@ -135,7 +135,7 @@ const { allProducts, isFetchingAllProducts } = useProducts();
           store.productsPerRow === 1 ? 'grid-cols-1' : '',
         ]"
       >
-        <div v-for="product in allProducts" :key="product.id">
+        <div v-for="product in allProducts.data" :key="product.id">
           <ProductCard
             :product="product"
             class="transition-all transition-discrete duration-500"

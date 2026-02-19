@@ -59,12 +59,6 @@ const router = createRouter({
           component: Cart,
           meta: { requiresAuth: true },
         },
-        {
-          path: "checkout",
-          name: "checkout",
-          component: Checkout,
-          meta: { requiresAuth: true },
-        },
 
         {
           path: "account",
@@ -91,6 +85,12 @@ const router = createRouter({
           component: ForgotPassword,
         },
       ],
+    },
+    {
+      path: "/checkout",
+      name: "checkout",
+      component: Checkout,
+      meta: { requiresAuth: true },
     },
   ],
 

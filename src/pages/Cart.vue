@@ -1,5 +1,6 @@
 <script setup>
 import useCart from "@/composables/useCart";
+import CartSkeleton from "@/ui/CartSkeleton.vue";
 import BreadCrumbs from "@/ui/BreadCrumbs.vue";
 import { Icon } from "@iconify/vue";
 import { formatCurrency } from "@/utils/helpers";
@@ -53,12 +54,10 @@ watch(
 
 <template>
   <BreadCrumbs :breadcrumbs="breadcrumbs" />
-  <main class="mx-auto w-full max-w-container px-3.75 py-20 md:py-25">
-    <!-- Loading -->
-    <div v-if="isFetchingCart">Fetching...</div>
-
+  <CartSkeleton v-if="isFetchingCart" />
+  <main v-else class="mx-auto w-full max-w-container px-3.75 py-20 md:py-25">
     <!-- Empty cart -->
-    <section v-else-if="cartData.length <= 0" class="flex flex-col items-center">
+    <section v-if="cartData.length <= 0" class="flex flex-col items-center">
       <div class="mb-8.75 w-full bg-[#fff3cd] py-3.75 text-center text-[#856404]">
         Shopping Cart is Empty.
       </div>

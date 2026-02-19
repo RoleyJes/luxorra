@@ -8,3 +8,7 @@ export function formatCurrency(value, localCode = "en-US", currencyCode = "USD")
 export function formatNumber(value) {
   return value.toLocaleString("en-US");
 }
+
+export function getFirstLetter(word) {
+  return word.split("")[0].toUpperCase();
+}

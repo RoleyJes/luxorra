@@ -17,9 +17,9 @@ export async function deleteFromCart(id) {
   return res.data;
 }
 
-export async function updateCart({ id, type }) {
+export async function updateCart(payload) {
   // Always remember that mutation fns accept only 1 argument! If you have multiple arguments, pass them in as a single object. I'm doing this here because i'm handling this request with VQ.
-  const res = await api.put(`/cart/${id}`, { type });
+  const res = await api.put(`/cart/${payload.id}`, { type: payload.type });
   return res.data;
 }
 
