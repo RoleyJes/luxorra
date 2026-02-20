@@ -6,12 +6,8 @@ import { getFirstLetter } from "@/utils/helpers";
 import { ref } from "vue";
 import DeliveryForm from "@/ui/DeliveryForm.vue";
 import PaymentForm from "@/ui/PaymentForm.vue";
-import toast from "vue3-hot-toast";
-import api from "@/services/axios";
-import { useRouter } from "vue-router";
 import useCheckout from "@/composables/useCheckout";
 
-const router = useRouter();
 const { user, isFetchingUser } = useUser();
 
 const emailNews = ref(false);

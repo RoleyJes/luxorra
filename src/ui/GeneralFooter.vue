@@ -1,7 +1,7 @@
 <script setup>
-import { ref } from "vue"
-import FooterCompanies from "./FooterCompanies.vue"
-import FooterSocials from "./FooterSocials.vue"
+import { ref } from "vue";
+import FooterCompanies from "./FooterCompanies.vue";
+import FooterSocials from "./FooterSocials.vue";
 
 const links = ref([
   { path: "/", label: "Search" },
@@ -9,9 +9,9 @@ const links = ref([
   { path: "/", label: "Contact" },
   { path: "/", label: "Policy" },
   { path: "/", label: "Faqs" },
-])
+]);
 
-const year = new Date().getFullYear()
+const year = new Date().getFullYear();
 </script>
 
 <template>
@@ -31,8 +31,8 @@ const year = new Date().getFullYear()
             </ul>
           </nav>
           <p class="leading-6 text-neutral-600">
-            © {{ year }} shop-by. All Rights Reserved |
-            <span class="font-bold">(+00) 123 567990</span> | contact@shopby.com
+            © {{ year }} Luxorra. All Rights Reserved |
+            <span class="font-bold">(+00) 123 567990</span> | contact@Luxorra.com
           </p>
         </div>
         <div class="lg:col-span-1 lg:text-right">
