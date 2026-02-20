@@ -42,6 +42,8 @@
      Shadows
      ================================ */
   /* --shadow-sm: 0px 2px 5px #0003; */
+
+  --shadow-navbar: 0px 2px 5px rgba(0, 0, 0, 0.2);
   --shadow-brand: -2px 2px 81px -27px rgba(0, 0, 0, 0.3);
   --shadow-input: inset 0 0 7px #0000001a;
 }

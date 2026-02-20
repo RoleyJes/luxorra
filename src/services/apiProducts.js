@@ -1,8 +1,9 @@
 import api from "./axios";
 
-export async function fetchAllProducts({ per_page = 10 }) {
-  const res = await api.get(`/products?per_page=${per_page}`);
-  // const res = await api.get("/products?per_page=30&current_page=2");
+export async function fetchAllProducts() {
+  // export async function fetchAllProducts({ per_page = 10 }) {
+  // const res = await api.get(`/products?per_page=${per_page}`);
+  const res = await api.get("/products?per_page=30&current_page=2");
   return res.data;
 }
 

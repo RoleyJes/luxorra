@@ -30,7 +30,8 @@ function toggleMobile() {
 </script>
 
 <template>
-  <header class="sticky top-0 z-50 w-full bg-white backdrop-blur-sm">
+  <!-- <header class="sticky top-0 z-50 w-full bg-white backdrop-blur-sm"> -->
+  <header class="fixed top-0 z-50 w-full bg-white shadow-navbar backdrop-blur-sm">
     <div class="mx-auto flex h-20 max-w-369 items-center justify-between px-4 md:px-10 lg:px-12">
       <!-- logo -->
       <div class="shrink-0">
@@ -45,7 +46,7 @@ function toggleMobile() {
           <RouterLink
             v-if="!link.dropdown"
             :to="link.path"
-            class="relative leading-20 transition duration-300 hover:text-brand-primary"
+            class="group relative leading-20 transition duration-300 hover:text-brand-primary"
             >{{ link.label }}
             <span
               class="absolute -bottom-px left-0 inline-block h-px w-0 bg-brand-primary transition-all duration-300 group-hover:w-full"

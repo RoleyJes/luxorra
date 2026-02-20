@@ -16,7 +16,7 @@
     > -->
     <div
       :class="[
-        'group relative min-h-px overflow-hidden bg-[#f5f5f5] pt-[120%] transition-all duration-250 ease-out md:pt-[90%] lg:pt-[80%]',
+        'group relative min-h-px overflow-hidden bg-[#f5f5f5] pt-[120%] transition-all duration-250 ease-out md:pt-[90%] lg:pt-[135%]',
         imgContainerClass,
       ]"
     >
