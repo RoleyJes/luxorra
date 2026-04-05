@@ -16,12 +16,12 @@ const breadcrumbs = [
 ];
 
 const formData = reactive({
-  firstName: "Toju",
-  lastName: "Tesimi",
-  email: "toju@test15.com",
-  password: "toju1234",
-  phone_number: "1234567890",
-  address: "toju street",
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  phone_number: "",
+  address: "",
 });
 
 const { isSigningUp, signup } = useSignup();
