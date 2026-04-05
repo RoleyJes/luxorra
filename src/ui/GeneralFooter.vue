@@ -32,7 +32,7 @@ const year = new Date().getFullYear();
           </nav>
           <p class="leading-6 text-neutral-600">
             © {{ year }} Luxorra. All Rights Reserved |
-            <span class="font-bold">(+00) 123 567990</span> | contact@Luxorra.com
+            <span class="font-bold">(+00) 123 567990</span> | contact@luxorra.com
           </p>
         </div>
         <div class="lg:col-span-1 lg:text-right">

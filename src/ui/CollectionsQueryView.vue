@@ -8,6 +8,7 @@ import { computed, onMounted, ref } from "vue";
 import { useProductsStore } from "@/stores/products";
 import SideFilters from "./SideFilters.vue";
 import { useProducts } from "@/composables/useProducts";
+import SelectField from "./SelectField.vue";
 
 const route = useRoute();
 console.log(route.query);
@@ -116,7 +117,15 @@ function handleNext() {
     :from="allProductsData?.from"
     :to="allProductsData?.to"
     :total="allProductsData?.total"
-  />
+  >
+    <div v-if="allProductsData" class="hidden items-center gap-2 md:flex">
+      <span>Show</span>
+      <SelectField name="show" id="show" v-model="allProductsData.per_page">
+        <option v-for="(_, i) in 10" :key="i" :value="i + 1">{{ i + 1 }}</option>
+      </SelectField>
+      <span class="hidden lg:block">per page</span>
+    </div>
+  </ShopPageHeader>
 
   <section
     class="mx-auto my-16.25 grid w-full max-w-container grid-cols-1 gap-x-7.5 px-3.75 md:my-17.5 md:px-7.5 lg:mt-20 lg:mb-25 lg:grid-cols-[270px_1fr]"
@@ -178,15 +187,17 @@ function handleNext() {
         >
           Prev
         </button>
+        <!-- Make it show only a few numbers when they are more than 6 -->
+
         <button
+          v-for="page in allProductsData?.last_page"
+          :key="page"
           class="border-b px-2 pb-3 transition-all duration-300 ease-out"
           :class="
             page === pageVQ
               ? 'border-b-neutral-50 text-brand-primary'
               : 'border-b-transparent text-neutral-50'
           "
-          v-for="page in allProductsData?.last_page"
-          :key="page"
           @click="pageVQ = page"
         >
           {{ page }}

@@ -6,7 +6,9 @@ import EmblaCarousel from "@/ui/slider/EmblaCarousel.vue";
 
 <template>
   <main>
-    <EmblaCarousel />
+    <div class="pt4 lg:pt-8">
+      <EmblaCarousel />
+    </div>
     <TabbedCollectionsDisplay />
     <FooterBanner />
   </main>

@@ -1,4 +1,5 @@
 import { useAuthStore } from "@/stores/auth";
+import router from "@/router";
 import axios from "axios";
 
 const api = axios.create({
@@ -11,9 +12,19 @@ const api = axios.create({
 
 api.interceptors.request.use((config) => {
   const authStore = useAuthStore();
+
   if (authStore.token) {
+    if (authStore.isTokenExpired()) {
+      authStore.clearToken();
+      if (router.currentRoute.value.name !== "login") {
+        router.push({ name: "login" });
+      }
+      return Promise.reject(new Error("Your session has expired. Please log in again."));
+    }
+
     config.headers.Authorization = `Bearer ${authStore.token}`;
   }
+
   return config;
 });
 
@@ -23,8 +34,18 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (res) => res,
   (error) => {
-    const message =
+    const status = error.response?.status;
+    let message =
       error.response?.data?.message || error.response?.data?.error?.message || "Unexpected error";
+
+    if (status === 401) {
+      const authStore = useAuthStore();
+      authStore.clearToken();
+      if (router.currentRoute.value.name !== "login") {
+        router.push({ name: "login" });
+      }
+      message = "Your session has expired. Please log in again.";
+    }
 
     return Promise.reject(new Error(message));
   },

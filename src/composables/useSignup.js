@@ -16,7 +16,7 @@ export function useSignup() {
       authStore.setToken(data.token);
       toast.success("You've successfully registered");
 
-      // At the time of writing this, I haven't created a user queryData. Ensure to do that
+      // At the time of writing this, I haven't created a user queryData. Ensure to do that (done in useUser.js)
       queryClient.setQueryData(["user"], data.user);
       router.push("/");
     },

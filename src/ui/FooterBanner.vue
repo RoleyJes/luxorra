@@ -25,21 +25,21 @@
         Up To 40% Off Final Sale Items. Caught in the moment!
       </p>
 
-      <ButtonOrLink text="show now" type="medium" />
+      <!-- <ButtonOrLink text="shop now" type="medium" /> -->
     </article>
   </section>
 </template>
 
 <script setup>
-import cabinet from "@/assets/cabinet.webp"
-import ButtonOrLink from "@/ui/ButtonOrLink.vue"
-import { ref } from "vue"
+import cabinet from "@/assets/cabinet.webp";
+// import ButtonOrLink from "@/ui/ButtonOrLink.vue";
+import { ref } from "vue";
 
 const links = ref([
   { label: "#summer", path: "/" },
   { label: "#shelf", path: "/" },
   { label: "#Sale", path: "/" },
-])
+]);
 </script>
 
 <style lang="scss" scoped></style>

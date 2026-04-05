@@ -1,4 +1,3 @@
-import Blog from "@/pages/Blog.vue";
 import Cart from "@/pages/Cart.vue";
 import Checkout from "@/pages/Checkout.vue";
 import ForgotPassword from "@/pages/auth/ForgotPassword.vue";
@@ -10,9 +9,11 @@ import GeneralLayout from "@/ui/GeneralLayout.vue";
 import { createRouter, createWebHistory } from "vue-router";
 import Account from "@/pages/Account.vue";
 import { useAuthStore } from "@/stores/auth";
-import CollectionsQueryView from "@/ui/CollectionsQueryView.vue";
-import Catalog from "@/pages/Catalog.vue";
 import ProductDetail from "@/pages/ProductDetail.vue";
+import NotFound from "@/pages/NotFound.vue";
+import toast from "vue3-hot-toast";
+// import Catalog from "@/pages/Catalog.vue";
+import CollectionsQueryView from "@/ui/CollectionsQueryView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,21 +27,21 @@ const router = createRouter({
           name: "home",
           component: Home,
         },
-        {
-          path: "collections",
-          name: "collections",
-          component: Catalog,
-        },
+        // {
+        //   path: "collections",
+        //   name: "collections",
+        //   component: Catalog,
+        // },
         // This is because both pages are different
         {
           path: "collections/:collection",
           name: "collections-query",
           component: CollectionsQueryView,
         },
-        {
-          path: "blog",
-          component: Blog,
-        },
+        // {
+        //   path: "blog",
+        //   component: Blog,
+        // },
 
         // There is a /products page in Lezada, but i haven't seen what leads there. I only got there via typing in the url. That's where you get all the collections. The page is also the same for /collections. I just saw that it's the catalog button itself that actually leads to /collections which displays the same thing as /products
         {
@@ -92,6 +93,11 @@ const router = createRouter({
       component: Checkout,
       meta: { requiresAuth: true },
     },
+    {
+      path: "/:pathMatch(.*)*",
+      name: "not-found",
+      component: NotFound,
+    },
   ],
 
   scrollBehavior(to, from, savedPosition) {
@@ -110,6 +116,14 @@ const router = createRouter({
 
 router.beforeEach((to) => {
   const authStore = useAuthStore();
+
+  if (authStore.isTokenExpired()) {
+    authStore.clearToken();
+    if (to.meta.requiresAuth) {
+      toast.error("Your session has expired. Please log in again.");
+      return { name: "login" };
+    }
+  }
 
   if (to.meta.requiresAuth && !authStore.isAuthenticated) {
     return { name: "login" };

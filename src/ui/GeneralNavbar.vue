@@ -20,8 +20,8 @@ const mobileOpen = ref(false);
 const navLinks = ref([
   { path: "/", label: "Home" },
   { path: "/collections/all", label: "Shop" },
-  { path: "/collections", label: "Catalog", dropdown: true },
-  { path: "/blog", label: "Blog" },
+  // { path: "/collections", label: "Catalog", dropdown: true },
+  // { path: "/blog", label: "Blog" },
 ]);
 
 function toggleMobile() {
@@ -31,7 +31,7 @@ function toggleMobile() {
 
 <template>
   <!-- <header class="sticky top-0 z-50 w-full bg-white backdrop-blur-sm"> -->
-  <header class="fixed top-0 z-50 w-full bg-white shadow-navbar backdrop-blur-sm">
+  <header class="shadownavbar fixed top-0 z-50 w-full bg-white shadow-sm backdrop-blur-sm">
     <div class="mx-auto flex h-20 max-w-369 items-center justify-between px-4 md:px-10 lg:px-12">
       <!-- logo -->
       <div class="shrink-0">
@@ -76,9 +76,9 @@ function toggleMobile() {
       <!-- icons -->
       <div class="flex items-center space-x-3 text-brand-primary md:space-x-6">
         <!-- Search -->
-        <button class="text-xl">
+        <!-- <button class="text-xl">
           <Icon icon="mdi:search" class="size-5" />
-        </button>
+        </button> -->
 
         <!-- User -->
         <RouterLink :to="authStore.isAuthenticated ? '/account' : '/account/login'" class="text-xl">

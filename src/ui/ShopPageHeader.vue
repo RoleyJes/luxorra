@@ -109,12 +109,12 @@ defineProps({
         </p>
 
         <!-- Number of displayed products per page -->
-        slot
+        <slot></slot>
 
         <!-- Sort by -->
         <div class="hidden items-center gap-2 md:flex">
           <span>Sort by</span>
-          <SelectField name="sortBy" id="sortBy" value="alphabeticallyAZ">
+          <SelectField name="sortBy" id="sortBy" v-model="sortByOptions[0].value">
             <option v-for="(item, i) in sortByOptions" :key="i" :value="item.value">
               {{ item.label }}
             </option>

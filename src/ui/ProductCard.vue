@@ -79,22 +79,22 @@
         </button>
 
         <!-- Compare -->
-        <div class="flex flex-row-reverse items-center gap-4">
+        <!-- <div class="flex flex-row-reverse items-center gap-4">
           <SmallIconInBg
             icon="iconoir:shuffle"
             class="peer text-neutral-500 transition-all duration-500 hover:text-brand-primary lg:translate-y-3.5 lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:opacity-100"
           />
           <Popup text="Compare" />
-        </div>
+        </div> -->
 
         <!-- Quick View-->
-        <div class="flex flex-row-reverse items-center gap-4">
+        <!-- <div class="flex flex-row-reverse items-center gap-4">
           <SmallIconInBg
             icon="mdi:search"
             class="peer text-neutral-500 transition-all duration-500 hover:text-brand-primary lg:translate-y-4.5 lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:opacity-100"
           />
           <Popup text="Quick View" />
-        </div>
+        </div> -->
       </div>
     </div>
 
