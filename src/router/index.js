@@ -121,11 +121,13 @@ router.beforeEach((to) => {
     authStore.clearToken();
     if (to.meta.requiresAuth) {
       toast.error("Your session has expired. Please log in again.");
+      authStore.setRedirectUrl(to.fullPath);
       return { name: "login" };
     }
   }
 
   if (to.meta.requiresAuth && !authStore.isAuthenticated) {
+    authStore.setRedirectUrl(to.fullPath);
     return { name: "login" };
   }
 

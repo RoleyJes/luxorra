@@ -40,11 +40,14 @@ api.interceptors.response.use(
 
     if (status === 401) {
       const authStore = useAuthStore();
+      const hadToken = !!authStore.token;
       authStore.clearToken();
       if (router.currentRoute.value.name !== "login") {
         router.push({ name: "login" });
       }
-      message = "Your session has expired. Please log in again.";
+      message = hadToken
+        ? "Your session has expired. Please log in again."
+        : "Please log in to access this feature.";
     }
 
     return Promise.reject(new Error(message));

@@ -14,10 +14,21 @@ const parseJwt = (token) => {
 
 export const useAuthStore = defineStore("auth", () => {
   const token = ref(localStorage.getItem("authToken") || null);
+  const redirectUrl = ref(null);
 
   const setToken = (authToken) => {
     token.value = authToken;
     localStorage.setItem("authToken", authToken);
+  };
+
+  const setRedirectUrl = (url) => {
+    redirectUrl.value = url;
+  };
+
+  const getAndClearRedirectUrl = () => {
+    const url = redirectUrl.value || "/account";
+    redirectUrl.value = null;
+    return url;
   };
 
   const clearToken = () => {
@@ -40,5 +51,7 @@ export const useAuthStore = defineStore("auth", () => {
     isAuthenticated,
     isTokenExpired,
     setToken,
+    setRedirectUrl,
+    getAndClearRedirectUrl,
   };
 });
