@@ -63,11 +63,16 @@ const agreed = ref(false);
             >
               <!-- image -->
               <div class="relative min-h-px shrink-0 basis-20 bg-[#f5f5f5] pt-[35%]">
-                <img
-                  :src="product.image"
-                  alt="product on sale"
-                  class="absolute top-1/2 left-1/2 size-[70%] -translate-x-1/2 -translate-y-1/2 scale-110 object-contain transition-all"
-                />
+                <RouterLink
+                  @click="cartStore.toggleOffcanvasCart()"
+                  :to="{ name: 'product-detail', params: { id: product.id } }"
+                >
+                  <img
+                    :src="product.image"
+                    alt="product on sale"
+                    class="absolute top-1/2 left-1/2 size-[70%] -translate-x-1/2 -translate-y-1/2 scale-110 object-contain transition-all duration-500 hover:scale-105"
+                  />
+                </RouterLink>
               </div>
 
               <!-- details -->

@@ -112,10 +112,12 @@ function toggleMobile() {
     <!-- mobile nav -->
     <transition name="slide">
       <nav v-if="mobileOpen" class="border-t border-gray-200 bg-white md:hidden">
-        <a href="/" class="block px-4 py-3 hover:bg-gray-100">Home</a>
-        <a href="/shop" class="block px-4 py-3 hover:bg-gray-100">Shop</a>
-        <a href="/blog" class="block px-4 py-3 hover:bg-gray-100">Blog</a>
-        <a href="/contact" class="block px-4 py-3 hover:bg-gray-100">Contact</a>
+        <RouterLink to="/" class="block px-4 py-3 hover:bg-gray-100">Home</RouterLink>
+        <RouterLink to="/collections/all" class="block px-4 py-3 hover:bg-gray-100"
+          >Shop</RouterLink
+        >
+        <!-- <RouterLink to="/blog" class="block px-4 py-3 hover:bg-gray-100">Blog</RouterLink> -->
+        <!-- <RouterLink to="/contact" class="block px-4 py-3 hover:bg-gray-100">Contact</RouterLink> -->
       </nav>
     </transition>
   </header>
