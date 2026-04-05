@@ -96,16 +96,47 @@ const {
   allProductsError,
 } = useProducts();
 
+const visiblePages = computed(() => {
+  const total = allProductsData.value?.last_page || 0;
+  const current = pageVQ.value;
+  if (total <= 7) {
+    return Array.from({ length: total }, (_, i) => i + 1);
+  }
+  const pages = [];
+  pages.push(1);
+  if (current > 4) {
+    pages.push("...");
+  }
+  const start = Math.max(2, current - 1);
+  const end = Math.min(total - 1, current + 1);
+  for (let i = start; i <= end; i++) {
+    pages.push(i);
+  }
+  if (current < total - 3) {
+    pages.push("...");
+  }
+  if (total > 1) {
+    pages.push(total);
+  }
+  return pages;
+});
+
 function handlePrev() {
   if (pageVQ.value === 1) return;
   urlVQ.value = allProductsData.value?.prev_page_url;
   pageVQ.value--;
+  scrollToTop();
 }
 
 function handleNext() {
   if (allProductsData.value?.last_page === pageVQ.value) return;
   urlVQ.value = allProductsData.value?.next_page_url;
   pageVQ.value++;
+  scrollToTop();
+}
+
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 </script>
 
@@ -180,30 +211,42 @@ function handleNext() {
       </div>
 
       <!-- Pagination -->
-      <div class="mt-30 flex items-center justify-center gap-6">
+      <div class="mt-30 flex flex-wrap items-center justify-center gap-2 md:gap-6">
         <button
-          class="pb-3 text-neutral-50 transition-all duration-300 ease-out hover:text-brand-primary"
+          :disabled="pageVQ === 1"
+          class="pb-3 text-sm text-neutral-50 transition-all duration-300 ease-out hover:text-brand-primary disabled:cursor-not-allowed! disabled:opacity-50 disabled:hover:text-neutral-50 md:text-base"
           @click="handlePrev"
         >
           Prev
         </button>
         <!-- Make it show only a few numbers when they are more than 6 -->
 
+        <template v-for="page in visiblePages" :key="page">
+          <span
+            v-if="page === '...'"
+            class="border-b border-b-transparent px-1 pb-3 text-sm text-neutral-50 md:px-2 md:text-base"
+          >
+            ...
+          </span>
+          <button
+            v-else
+            class="border-b px-1 pb-3 text-sm transition-all duration-300 ease-out md:px-2 md:text-base"
+            :class="
+              page === pageVQ
+                ? 'border-b-neutral-50 text-brand-primary'
+                : 'border-b-transparent text-neutral-50'
+            "
+            @click="
+              pageVQ = page;
+              scrollToTop();
+            "
+          >
+            {{ page }}
+          </button>
+        </template>
         <button
-          v-for="page in allProductsData?.last_page"
-          :key="page"
-          class="border-b px-2 pb-3 transition-all duration-300 ease-out"
-          :class="
-            page === pageVQ
-              ? 'border-b-neutral-50 text-brand-primary'
-              : 'border-b-transparent text-neutral-50'
-          "
-          @click="pageVQ = page"
-        >
-          {{ page }}
-        </button>
-        <button
-          class="pb-3 text-neutral-50 transition-all duration-300 ease-out hover:text-brand-primary"
+          :disabled="pageVQ === allProductsData?.last_page"
+          class="pb-3 text-sm text-neutral-50 transition-all duration-300 ease-out hover:text-brand-primary disabled:cursor-not-allowed! disabled:opacity-50 disabled:hover:text-neutral-50 md:text-base"
           @click="handleNext"
         >
           Next
