@@ -112,20 +112,20 @@ defineProps({
         <slot></slot>
 
         <!-- Sort by -->
-        <div class="hidden items-center gap-2 md:flex">
+        <!-- <div class="hidden items-center gap-2 md:flex">
           <span>Sort by</span>
           <SelectField name="sortBy" id="sortBy" v-model="sortByOptions[0].value">
             <option v-for="(item, i) in sortByOptions" :key="i" :value="item.value">
               {{ item.label }}
             </option>
           </SelectField>
-        </div>
+        </div> -->
 
         <!-- Filter -->
-        <button class="flex items-start gap-1 text-neutral-500 lg:hidden">
+        <!-- <button class="flex items-start gap-1 text-neutral-500 lg:hidden">
           <Icon icon="ph:funnel-simple-light" class="text-xl" />
           <span>Filters</span>
-        </button>
+        </button> -->
       </div>
     </div>
   </div>

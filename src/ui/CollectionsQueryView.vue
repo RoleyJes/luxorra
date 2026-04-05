@@ -11,7 +11,6 @@ import { useProducts } from "@/composables/useProducts";
 import SelectField from "./SelectField.vue";
 
 const route = useRoute();
-console.log(route.query);
 const store = useProductsStore();
 
 const curOpen = ref(null);
@@ -21,49 +20,49 @@ const filterData = [
     id: 1,
     title: "Custom Menu",
     description:
-      "To increase your transaction limits, you may need to provide additional verification documents such as your government ID or proof of address.",
+      "lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit auctor dui, sed efficitur ipsum bibendum a. Sed at felis eget velit commodo efficitur.",
   },
   {
     id: 2,
     title: "Availability",
     description:
-      "To increase your transaction limits, you may need to provide additional verification documents such as your government ID or proof of address.",
+      "lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit auctor dui, sed efficitur ipsum bibendum a. Sed at felis eget velit commodo efficitur.",
   },
   {
     id: 3,
     title: "Price",
     description:
-      "To increase your transaction limits, you may need to provide additional verification documents such as your government ID or proof of address.",
+      "lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit auctor dui, sed efficitur ipsum bibendum a. Sed at felis eget velit commodo efficitur.",
   },
   {
     id: 4,
     title: "Color",
     description:
-      "To increase your transaction limits, you may need to provide additional verification documents such as your government ID or proof of address.",
+      "lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit auctor dui, sed efficitur ipsum bibendum a. Sed at felis eget velit commodo efficitur.",
   },
   {
     id: 5,
     title: "Size",
     description:
-      "To increase your transaction limits, you may need to provide additional verification documents such as your government ID or proof of address.",
+      "lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit auctor dui, sed efficitur ipsum bibendum a. Sed at felis eget velit commodo efficitur.",
   },
   {
     id: 6,
     title: "Product type",
     description:
-      "To increase your transaction limits, you may need to provide additional verification documents such as your government ID or proof of address.",
+      "lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit auctor dui, sed efficitur ipsum bibendum a. Sed at felis eget velit commodo efficitur.",
   },
   {
     id: 7,
     title: "Brand",
     description:
-      "To increase your transaction limits, you may need to provide additional verification documents such as your government ID or proof of address.",
+      "lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit auctor dui, sed efficitur ipsum bibendum a. Sed at felis eget velit commodo efficitur.",
   },
   {
     id: 8,
     title: "Material",
     description:
-      "To increase your transaction limits, you may need to provide additional verification documents such as your government ID or proof of address.",
+      "lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit auctor dui, sed efficitur ipsum bibendum a. Sed at felis eget velit commodo efficitur.",
   },
 ];
 
@@ -93,6 +92,7 @@ const {
   isFetchingAllProducts,
   page: pageVQ,
   url: urlVQ,
+  perPage,
   allProductsError,
 } = useProducts();
 
@@ -151,7 +151,7 @@ function scrollToTop() {
   >
     <div v-if="allProductsData" class="hidden items-center gap-2 md:flex">
       <span>Show</span>
-      <SelectField name="show" id="show" v-model="allProductsData.per_page">
+      <SelectField name="show" id="show" v-model="perPage">
         <option v-for="(_, i) in 10" :key="i" :value="i + 1">{{ i + 1 }}</option>
       </SelectField>
       <span class="hidden lg:block">per page</span>

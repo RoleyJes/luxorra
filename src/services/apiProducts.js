@@ -17,11 +17,11 @@ import api from "./axios";
 //   return res.data;
 // }
 
-export async function fetchAllProducts({ page, url = null }) {
+export async function fetchAllProducts({ page, url = null, per_page = 10 }) {
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
   const strippedUrl = url ? url.replace(baseUrl, "") : null;
 
-  const urlToUse = strippedUrl || `/products?per_page=10&page=${page}`;
+  const urlToUse = strippedUrl || `/products?per_page=${per_page}&page=${page}`;
   // const res = await api.get(`/products?per_page=10&page=${page}`);
   const res = await api.get(urlToUse);
   return res.data;
