@@ -1,3 +1,5 @@
+<!-- This component is no longer used, it's been transfered to PaymentForm -->
+
 <template>
   <section class="max-w-xl space-y-6">
     <h2 class="text-xl font-semibold">Delivery</h2>

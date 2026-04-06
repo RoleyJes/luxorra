@@ -3,20 +3,20 @@ import { useUser } from "@/composables/useUser";
 import Logo from "@/ui/Logo.vue";
 import { Icon } from "@iconify/vue";
 import { getFirstLetter } from "@/utils/helpers";
-import { ref } from "vue";
-import DeliveryForm from "@/ui/DeliveryForm.vue";
+// import DeliveryForm from "@/ui/DeliveryForm.vue";
 import PaymentForm from "@/ui/PaymentForm.vue";
 import useCheckout from "@/composables/useCheckout";
+import useCart from "@/composables/useCart";
+import { ref } from "vue";
 
-const { user, isFetchingUser } = useUser();
+const { cartLength, cartData, totalAmt, deleteFromCart, deletingId } = useCart();
 
 const emailNews = ref(false);
 
 const shippingAddress = ref("");
 
-// const isLoading = ref(false);
-
 const { isCheckingOut, checkout } = useCheckout();
+const { user, isFetchingUser } = useUser();
 
 function handleCheckout(paymentData) {
   checkout({
@@ -25,47 +25,32 @@ function handleCheckout(paymentData) {
     shipping_address: shippingAddress.value,
   });
 }
-
-// async function handleCheckout(paymentData) {
-//   try {
-//     isLoading.value = true;
-
-//     const payload = {
-//       payment_method: paymentData.payment_method,
-//       shipping_address: shippingAddress.value,
-//       billing_address: paymentData.billing_address,
-//     };
-
-//     const res = await api.post("/orders/checkout", payload);
-//     toast.success(res.data.message || "Checkout successful");
-
-//     setTimeout(() => {
-//       router.push({ name: "home" });
-//     }, 1500);
-//     return res.data;
-//   } catch (err) {
-//     toast.error(err.message || "Checkout failed");
-//   } finally {
-//     isLoading.value = false;
-//   }
-// }
 </script>
 
 <template>
   <header class="border-b border-b-neutral-border2">
-    <nav class="mx-auto flex w-full max-w-container items-center justify-between py-5.25">
+    <nav
+      class="mx-auto flex w-full max-w-container items-center justify-between px-5 py-5.25 lg:px-0"
+    >
       <RouterLink :to="{ name: 'home' }">
         <Logo />
       </RouterLink>
-      <RouterLink :to="{ name: 'cart' }">
+      <RouterLink :to="{ name: 'cart' }" class="group relative flex flex-col items-center">
+        <span
+          class="absolute translate-y-6 rounded bg-black px-1 py-0.5 text-xs text-white opacity-0 transition-all duration-500 group-hover:-translate-y-5 group-hover:opacity-100"
+          >Cart</span
+        >
         <Icon icon="solar:cart-outline" class="text-2xl" />
       </RouterLink>
     </nav>
   </header>
 
+  <!-- fetching User data -->
   <div v-if="isFetchingUser">
     <div class="mx-auto h-10 w-32 animate-pulse rounded bg-neutral-200" />
   </div>
+
+  <!-- Has items in cart -->
   <main v-else class="grid min-h-[calc(100vh-78px)] grid-cols-1 text-black lg:grid-cols-2">
     <!-- Left -->
     <section class="flex justify-end border-r border-r-neutral-border2">
@@ -99,20 +84,32 @@ function handleCheckout(paymentData) {
         </div>
 
         <!-- Delivery -->
-        <div class="mt-8">
+        <!-- <div class="mt-8">
           <DeliveryForm @update:shipping="shippingAddress = $event" />
-        </div>
+        </div> -->
 
         <!-- Payment -->
         <PaymentForm
           :shippingAddress="shippingAddress"
           :isLoading="isCheckingOut"
+          :isEmptyCart="cartLength <= 0"
           @checkout="handleCheckout"
         />
       </div>
     </section>
     <!-- Right -->
-    <section class="bg-[#fafafa]">Test</section>
+    <!-- Empty cart -->
+    <div
+      v-if="cartLength <= 0"
+      class="mx-auto mt-8 flex w-full max-w-145 flex-col items-center px-5 text-center text-xl md:px-0"
+    >
+      <p>Your cart is currently empty, you have nothing to checkout.</p>
+      <p>
+        Browse our
+        <RouterLink to="/collections/all" class="text-brand-primary underline">products</RouterLink>
+        to add items to your cart.
+      </p>
+    </div>
   </main>
 </template>
 

@@ -1,4 +1,51 @@
 <template>
+  <!-- <div class="mt-8"> -->
+  <!-- <DeliveryForm /> -->
+  <!-- <DeliveryForm @update:shipping="shippingAddress = $event" /> -->
+  <!-- </div> -->
+
+  <!-- Delivery -->
+  <section class="mt-8 max-w-xl space-y-6">
+    <h2 class="text-xl font-semibold">Delivery</h2>
+
+    <!-- Country -->
+    <BaseSelect v-model="card.countryCode" placeholder="Country / Region" :options="countries" />
+
+    <!-- Name Row -->
+    <div class="grid grid-cols-2 gap-4">
+      <BaseInput v-model="card.firstName" placeholder="First name (optional)" />
+
+      <BaseInput v-model="card.lastName" placeholder="Last name" :error="errors.lastName" />
+    </div>
+
+    <!-- Address -->
+    <BaseInput v-model="card.address" placeholder="Address" :error="errors.address" />
+
+    <BaseInput v-model="card.apartment" placeholder="Apartment, suite, etc. (optional)" />
+
+    <!-- City / State / Postal -->
+    <div class="grid grid-cols-3 gap-4">
+      <BaseInput v-model="card.city" placeholder="City" :error="errors.city" />
+
+      <BaseSelect
+        v-model="card.stateCode"
+        placeholder="State"
+        :options="states"
+        :error="errors.state"
+      />
+
+      <BaseInput v-model="card.postalCode" placeholder="Postal code (optional)" />
+    </div>
+
+    <!-- <button
+      @click="validate"
+      class="mt-4 w-full rounded-md bg-black px-6 py-3 text-white hover:opacity-90"
+    >
+      Continue
+    </button> -->
+  </section>
+
+  <!-- Payment -->
   <section class="mt-10 space-y-6">
     <h2 class="text-xl font-semibold">Payment</h2>
 
@@ -44,8 +91,8 @@
     <!-- Pay Button -->
     <button
       @click="submitPayment"
-      :disabled="isLoading"
-      class="mt-6 w-full rounded-md bg-black py-4 text-white disabled:opacity-50"
+      :disabled="isLoading || isEmptyCart"
+      class="mt-6 w-full rounded-md bg-black py-4 text-white disabled:cursor-not-allowed! disabled:opacity-50"
     >
       {{ isLoading ? "Processing..." : "Pay now" }}
     </button>
@@ -53,20 +100,33 @@
 </template>
 
 <script setup>
-import { reactive, ref } from "vue";
+import { computed, reactive, ref } from "vue";
 import BaseInput from "./BaseInput.vue";
+import BaseSelect from "./BaseSelect.vue";
+import { watch } from "vue";
+import { Country, State } from "country-state-city";
 
 const emit = defineEmits(["checkout"]);
 
 const props = defineProps({
   shippingAddress: String,
   isLoading: Boolean,
+  isEmptyCart: Boolean,
 });
 
 const paymentMethod = ref("card");
 const useShippingAsBilling = ref(true);
 
 const card = reactive({
+  country: "",
+  countryCode: "",
+  stateCode: "",
+  firstName: "",
+  lastName: "",
+  address: "",
+  apartment: "",
+  city: "",
+  postalCode: "",
   number: "",
   expiry: "",
   cvc: "",
@@ -78,6 +138,10 @@ const billing = reactive({
 });
 
 const errors = reactive({
+  lastName: "",
+  address: "",
+  city: "",
+  state: "",
   cardNumber: "",
   expiry: "",
   cvc: "",
@@ -86,6 +150,11 @@ const errors = reactive({
 });
 
 function validate() {
+  errors.lastName = card.lastName ? "" : "Enter a last name";
+  errors.address = card.address ? "" : "Enter an address";
+  errors.city = card.city ? "" : "Enter a city";
+  errors.countryCode = card.countryCode ? "" : "Select a country / region";
+  errors.state = card.stateCode ? "" : "Select a state / province";
   errors.cardNumber = card.number ? "" : "Enter a card number";
   errors.expiry = card.expiry ? "" : "Enter a valid expiration date";
   errors.cvc = card.cvc ? "" : "Enter CVV";
@@ -112,4 +181,34 @@ function submitPayment() {
     billing_address: useShippingAsBilling.value ? props.shippingAddress : billing.address,
   });
 }
+
+/* -----------------------
+   Countries
+----------------------- */
+const countries = Country.getAllCountries().map((c) => ({
+  label: c.name,
+  value: c.isoCode,
+}));
+
+/* -----------------------
+   States (dependent)
+----------------------- */
+const states = computed(() => {
+  if (!card.countryCode) return [];
+
+  return State.getStatesOfCountry(card.countryCode).map((s) => ({
+    label: s.name,
+    value: s.isoCode,
+  }));
+});
+
+/* -----------------------
+   Reset state when country changes
+----------------------- */
+watch(
+  () => card.countryCode,
+  () => {
+    card.stateCode = "";
+  },
+);
 </script>

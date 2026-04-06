@@ -1,44 +1,44 @@
 <script setup>
 import { Icon } from "@iconify/vue";
-import SelectField from "./SelectField.vue";
+// import SelectField from "./SelectField.vue";
 import { ref } from "vue";
 import { useProductsStore } from "@/stores/products";
 // import { useProducts } from "@/composables/useProducts";
 
-const sortByOptions = ref([
-  {
-    label: "Featured",
-    value: "featured",
-  },
-  {
-    label: "Best Selling",
-    value: "bestSelling",
-  },
-  {
-    label: "Alphabetically, A - Z",
-    value: "alphabeticallyAZ",
-  },
-  {
-    label: "Alphabetically, Z - A",
-    value: "alphabeticallyZA",
-  },
-  {
-    label: "Price, low to high",
-    value: "priceAsc",
-  },
-  {
-    label: "Price, high to low",
-    value: "priceDesc",
-  },
-  {
-    label: "Date, new to old",
-    value: "dateNewToOld",
-  },
-  {
-    label: "Date, old to new",
-    value: "dateOldToNew",
-  },
-]);
+// const sortByOptions = ref([
+//   {
+//     label: "Featured",
+//     value: "featured",
+//   },
+//   {
+//     label: "Best Selling",
+//     value: "bestSelling",
+//   },
+//   {
+//     label: "Alphabetically, A - Z",
+//     value: "alphabeticallyAZ",
+//   },
+//   {
+//     label: "Alphabetically, Z - A",
+//     value: "alphabeticallyZA",
+//   },
+//   {
+//     label: "Price, low to high",
+//     value: "priceAsc",
+//   },
+//   {
+//     label: "Price, high to low",
+//     value: "priceDesc",
+//   },
+//   {
+//     label: "Date, new to old",
+//     value: "dateNewToOld",
+//   },
+//   {
+//     label: "Date, old to new",
+//     value: "dateOldToNew",
+//   },
+// ]);
 
 const icons = ref([
   {

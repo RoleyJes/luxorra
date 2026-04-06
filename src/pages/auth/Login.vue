@@ -41,7 +41,8 @@ async function handleLogin() {
       buttonText="Login"
       other-page-path="/account/forgot-password"
       other-page-text="Forgot your password?"
-      below-button-text="Create account"
+      below-button-text="Don't have an account?"
+      below-button-text-link="Sign up"
       below-button-path="/account/register"
       :disabled="isLoggingIn"
     >

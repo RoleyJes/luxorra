@@ -21,12 +21,15 @@
             >{{ otherPageText }}</RouterLink
           >
         </div>
-        <RouterLink
-          v-if="belowButtonText"
-          :to="belowButtonPath"
-          class="ease mt-5 inline-block text-[15px] transition-all duration-300 hover:text-neutral-700"
-          >{{ belowButtonText }}</RouterLink
-        >
+        <div class="mt-5 text-center">
+          <span>{{ belowButtonText }}</span>
+          <RouterLink
+            v-if="belowButtonTextLink"
+            :to="belowButtonPath"
+            class="ease ms-1 font-medium underline transition-all duration-300 hover:text-neutral-700"
+            >{{ belowButtonTextLink }}</RouterLink
+          >
+        </div>
       </form>
     </div>
   </div>
@@ -59,6 +62,10 @@ defineProps({
     type: String,
   },
   belowButtonText: {
+    type: String,
+    required: false,
+  },
+  belowButtonTextLink: {
     type: String,
     required: false,
   },
