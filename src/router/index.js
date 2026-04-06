@@ -14,6 +14,7 @@ import NotFound from "@/pages/NotFound.vue";
 import toast from "vue3-hot-toast";
 // import Catalog from "@/pages/Catalog.vue";
 import CollectionsQueryView from "@/ui/CollectionsQueryView.vue";
+import OrderSuccess from "@/pages/OrderSuccess.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -91,6 +92,12 @@ const router = createRouter({
       path: "/checkout",
       name: "checkout",
       component: Checkout,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: "/order-success",
+      name: "order-success",
+      component: OrderSuccess,
       meta: { requiresAuth: true },
     },
     {

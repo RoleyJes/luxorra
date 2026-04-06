@@ -111,20 +111,20 @@ const paymentMethod = ref("card");
 const useShippingAsBilling = ref(true);
 
 const form = reactive({
-  country: "Nigeria",
-  countryCode: "NGN",
-  stateCode: "PL",
-  firstName: "hkgk",
-  lastName: "kjhjkh",
-  address: "hghjk",
-  apartment: "uhkh",
-  city: "hhhk",
-  postalCode: "hghg",
-  number: "khkj",
-  expiry: "fhfg",
+  country: "",
+  countryCode: "",
+  stateCode: "",
+  firstName: "",
+  lastName: "",
+  address: "",
+  apartment: "",
+  city: "",
+  postalCode: "",
+  number: "",
+  expiry: "",
   billingAddress: "",
-  cvc: "gg",
-  name: "hghg",
+  cvc: "",
+  name: "",
 });
 
 const errors = reactive({
@@ -170,6 +170,17 @@ function submitPayment() {
     payment_method: paymentMethod.value,
     billing_address: useShippingAsBilling.value ? form.address : form.billingAddress,
     shipping_address: form.address,
+    // Additional data for order success page
+    firstName: form.firstName,
+    lastName: form.lastName,
+    address: form.address,
+    apartment: form.apartment,
+    city: form.city,
+    stateCode: form.stateCode,
+    postalCode: form.postalCode,
+    country: form.country,
+    cardLastFour: form.number.slice(-4),
+    useShippingAsBilling: useShippingAsBilling.value,
   });
 }
 

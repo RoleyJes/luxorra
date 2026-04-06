@@ -20,7 +20,28 @@ const { user, isFetchingUser } = useUser();
 
 function handleCheckout(paymentData) {
   console.log(paymentData);
-  // const
+
+  // Store additional order data for the success page
+  const orderData = {
+    shippingInfo: {
+      firstName: paymentData.firstName || "",
+      lastName: paymentData.lastName || "",
+      address: paymentData.shipping_address || "",
+      apartment: paymentData.apartment || "",
+      city: paymentData.city || "",
+      stateCode: paymentData.stateCode || "",
+      postalCode: paymentData.postalCode || "",
+      country: paymentData.country || "Nigeria",
+    },
+    billingAddress: paymentData.billing_address || "",
+    paymentMethod: paymentData.payment_method || "card",
+    lastFourDigits: paymentData.cardLastFour || "1234",
+    useShippingAsBilling: paymentData.useShippingAsBilling !== false,
+  };
+
+  // Store in localStorage to be picked up by useCheckout
+  localStorage.setItem("checkoutFormData", JSON.stringify(orderData));
+
   checkout({
     payment_method: paymentData.payment_method,
     billing_address: paymentData.billing_address,
@@ -116,7 +137,11 @@ function handleCheckout(paymentData) {
       <section v-else class="max-w-122 p-9.5 text-sm">
         <!-- Cart items -->
         <ul class="max-h-74 space-y-5 overflow-y-auto">
-          <li v-for="item in cartData" :key="item.id" class="flex items-center justify-between">
+          <li
+            v-for="item in cartData"
+            :key="item.id"
+            class="flex items-center justify-between first-of-type:pt-4"
+          >
             <!-- Image -->
             <div class="flex items-center gap-3">
               <div
@@ -127,6 +152,13 @@ function handleCheckout(paymentData) {
                   :alt="item.name"
                   class="absolute top-1/2 left-1/2 size-[70%] -translate-x-1/2 -translate-y-1/2 scale-110 object-contain transition-all duration-500 hover:scale-105"
                 />
+
+                <!-- Quantity -->
+                <p
+                  class="absolute -top-2 -right-2 z-50 rounded-lg border-2 border-white bg-black px-1.5 text-xs text-white"
+                >
+                  {{ item.quantity }}
+                </p>
               </div>
               <p>{{ item.name }}</p>
             </div>
