@@ -5,8 +5,8 @@ import FooterSocials from "./FooterSocials.vue";
 
 const links = ref([
   { path: "/", label: "Search" },
-  { path: "/", label: "About us" },
-  { path: "/", label: "Contact" },
+  { path: "/about", label: "About us" },
+  { path: "/contact", label: "Contact" },
   { path: "/", label: "Policy" },
   { path: "/", label: "Faqs" },
 ]);

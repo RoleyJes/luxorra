@@ -20,6 +20,8 @@ const mobileOpen = ref(false);
 const navLinks = ref([
   { path: "/", label: "Home" },
   { path: "/collections/all", label: "Shop" },
+  { path: "/about", label: "About" },
+  { path: "/contact", label: "Contact" },
   // { path: "/collections", label: "Catalog", dropdown: true },
   // { path: "/blog", label: "Blog" },
 ]);

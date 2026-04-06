@@ -15,6 +15,8 @@ import toast from "vue3-hot-toast";
 // import Catalog from "@/pages/Catalog.vue";
 import CollectionsQueryView from "@/ui/CollectionsQueryView.vue";
 import OrderSuccess from "@/pages/OrderSuccess.vue";
+import About from "@/pages/About.vue";
+import Contact from "@/pages/Contact.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -49,6 +51,16 @@ const router = createRouter({
           path: "products/:id",
           name: "product-detail",
           component: ProductDetail,
+        },
+        {
+          path: "about",
+          name: "about",
+          component: About,
+        },
+        {
+          path: "contact",
+          name: "contact",
+          component: Contact,
         },
         {
           path: "wishlist",
