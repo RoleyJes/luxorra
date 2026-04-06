@@ -69,7 +69,7 @@ const agreed = ref(false);
                 >
                   <img
                     :src="product.image"
-                    alt="product on sale"
+                    :alt="product.name || 'Product on sale'"
                     class="absolute top-1/2 left-1/2 size-[70%] -translate-x-1/2 -translate-y-1/2 scale-110 object-contain transition-all duration-500 hover:scale-105"
                   />
                 </RouterLink>

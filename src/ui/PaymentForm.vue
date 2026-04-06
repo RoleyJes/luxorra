@@ -9,40 +9,33 @@
     <h2 class="text-xl font-semibold">Delivery</h2>
 
     <!-- Country -->
-    <BaseSelect v-model="card.countryCode" placeholder="Country / Region" :options="countries" />
+    <BaseSelect v-model="form.countryCode" placeholder="Country / Region" :options="countries" />
 
     <!-- Name Row -->
     <div class="grid grid-cols-2 gap-4">
-      <BaseInput v-model="card.firstName" placeholder="First name (optional)" />
+      <BaseInput v-model="form.firstName" placeholder="First name (optional)" />
 
-      <BaseInput v-model="card.lastName" placeholder="Last name" :error="errors.lastName" />
+      <BaseInput v-model="form.lastName" placeholder="Last name" :error="errors.lastName" />
     </div>
 
     <!-- Address -->
-    <BaseInput v-model="card.address" placeholder="Address" :error="errors.address" />
+    <BaseInput v-model="form.address" placeholder="Address" :error="errors.address" />
 
-    <BaseInput v-model="card.apartment" placeholder="Apartment, suite, etc. (optional)" />
+    <BaseInput v-model="form.apartment" placeholder="Apartment, suite, etc. (optional)" />
 
     <!-- City / State / Postal -->
     <div class="grid grid-cols-3 gap-4">
-      <BaseInput v-model="card.city" placeholder="City" :error="errors.city" />
+      <BaseInput v-model="form.city" placeholder="City" :error="errors.city" />
 
       <BaseSelect
-        v-model="card.stateCode"
+        v-model="form.stateCode"
         placeholder="State"
         :options="states"
         :error="errors.state"
       />
 
-      <BaseInput v-model="card.postalCode" placeholder="Postal code (optional)" />
+      <BaseInput v-model="form.postalCode" placeholder="Postal code (optional)" />
     </div>
-
-    <!-- <button
-      @click="validate"
-      class="mt-4 w-full rounded-md bg-black px-6 py-3 text-white hover:opacity-90"
-    >
-      Continue
-    </button> -->
   </section>
 
   <!-- Payment -->
@@ -57,18 +50,18 @@
       </label>
 
       <div v-if="paymentMethod === 'card'" class="mt-4 space-y-4">
-        <BaseInput v-model="card.number" placeholder="Card number" :error="errors.cardNumber" />
+        <BaseInput v-model="form.number" placeholder="Card number" :error="errors.cardNumber" />
 
         <div class="grid grid-cols-2 gap-4">
           <BaseInput
-            v-model="card.expiry"
+            v-model="form.expiry"
             placeholder="Expiration date (MM / YY)"
             :error="errors.expiry"
           />
-          <BaseInput v-model="card.cvc" placeholder="Security code" :error="errors.cvc" />
+          <BaseInput v-model="form.cvc" placeholder="Security code" :error="errors.cvc" />
         </div>
 
-        <BaseInput v-model="card.name" placeholder="Name on card" :error="errors.cardName" />
+        <BaseInput v-model="form.name" placeholder="Name on card" :error="errors.cardName" />
       </div>
     </div>
 
@@ -81,7 +74,7 @@
 
       <div v-if="!useShippingAsBilling" class="space-y-4">
         <BaseInput
-          v-model="billing.address"
+          v-model="form.billingAddress"
           placeholder="Billing address"
           :error="errors.billingAddress"
         />
@@ -108,8 +101,8 @@ import { Country, State } from "country-state-city";
 
 const emit = defineEmits(["checkout"]);
 
-const props = defineProps({
-  shippingAddress: String,
+defineProps({
+  // shippingAddress: String,
   isLoading: Boolean,
   isEmptyCart: Boolean,
 });
@@ -117,24 +110,21 @@ const props = defineProps({
 const paymentMethod = ref("card");
 const useShippingAsBilling = ref(true);
 
-const card = reactive({
-  country: "",
-  countryCode: "",
-  stateCode: "",
-  firstName: "",
-  lastName: "",
-  address: "",
-  apartment: "",
-  city: "",
-  postalCode: "",
-  number: "",
-  expiry: "",
-  cvc: "",
-  name: "",
-});
-
-const billing = reactive({
-  address: "",
+const form = reactive({
+  country: "Nigeria",
+  countryCode: "NGN",
+  stateCode: "PL",
+  firstName: "hkgk",
+  lastName: "kjhjkh",
+  address: "hghjk",
+  apartment: "uhkh",
+  city: "hhhk",
+  postalCode: "hghg",
+  number: "khkj",
+  expiry: "fhfg",
+  billingAddress: "",
+  cvc: "gg",
+  name: "hghg",
 });
 
 const errors = reactive({
@@ -150,18 +140,18 @@ const errors = reactive({
 });
 
 function validate() {
-  errors.lastName = card.lastName ? "" : "Enter a last name";
-  errors.address = card.address ? "" : "Enter an address";
-  errors.city = card.city ? "" : "Enter a city";
-  errors.countryCode = card.countryCode ? "" : "Select a country / region";
-  errors.state = card.stateCode ? "" : "Select a state / province";
-  errors.cardNumber = card.number ? "" : "Enter a card number";
-  errors.expiry = card.expiry ? "" : "Enter a valid expiration date";
-  errors.cvc = card.cvc ? "" : "Enter CVV";
-  errors.cardName = card.name ? "" : "Enter name on card";
+  errors.lastName = form.lastName ? "" : "Enter a last name";
+  errors.address = form.address ? "" : "Enter an address";
+  errors.city = form.city ? "" : "Enter a city";
+  errors.countryCode = form.countryCode ? "" : "Select a country / region";
+  errors.state = form.stateCode ? "" : "Select a state / province";
+  errors.cardNumber = form.number ? "" : "Enter a card number";
+  errors.expiry = form.expiry ? "" : "Enter a valid expiration date";
+  errors.cvc = form.cvc ? "" : "Enter CVV";
+  errors.cardName = form.name ? "" : "Enter name on card";
 
   if (!useShippingAsBilling.value) {
-    errors.billingAddress = billing.address ? "" : "Enter billing address";
+    errors.billingAddress = form.billingAddress ? "" : "Enter billing address";
   }
 
   return (
@@ -178,7 +168,8 @@ function submitPayment() {
 
   emit("checkout", {
     payment_method: paymentMethod.value,
-    billing_address: useShippingAsBilling.value ? props.shippingAddress : billing.address,
+    billing_address: useShippingAsBilling.value ? form.address : form.billingAddress,
+    shipping_address: form.address,
   });
 }
 
@@ -194,9 +185,9 @@ const countries = Country.getAllCountries().map((c) => ({
    States (dependent)
 ----------------------- */
 const states = computed(() => {
-  if (!card.countryCode) return [];
+  if (!form.countryCode) return [];
 
-  return State.getStatesOfCountry(card.countryCode).map((s) => ({
+  return State.getStatesOfCountry(form.countryCode).map((s) => ({
     label: s.name,
     value: s.isoCode,
   }));
@@ -206,9 +197,9 @@ const states = computed(() => {
    Reset state when country changes
 ----------------------- */
 watch(
-  () => card.countryCode,
+  () => form.countryCode,
   () => {
-    card.stateCode = "";
+    form.stateCode = "";
   },
 );
 </script>

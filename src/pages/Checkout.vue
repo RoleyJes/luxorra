@@ -3,26 +3,28 @@ import { useUser } from "@/composables/useUser";
 import Logo from "@/ui/Logo.vue";
 import { Icon } from "@iconify/vue";
 import { getFirstLetter } from "@/utils/helpers";
-// import DeliveryForm from "@/ui/DeliveryForm.vue";
 import PaymentForm from "@/ui/PaymentForm.vue";
 import useCheckout from "@/composables/useCheckout";
 import useCart from "@/composables/useCart";
 import { ref } from "vue";
+import { formatCurrency } from "@/utils/helpers";
 
-const { cartLength, cartData, totalAmt, deleteFromCart, deletingId } = useCart();
+const { cartLength, cartData, totalAmt } = useCart();
 
 const emailNews = ref(false);
 
-const shippingAddress = ref("");
+// const shippingAddress = ref("");
 
 const { isCheckingOut, checkout } = useCheckout();
 const { user, isFetchingUser } = useUser();
 
 function handleCheckout(paymentData) {
+  console.log(paymentData);
+  // const
   checkout({
     payment_method: paymentData.payment_method,
     billing_address: paymentData.billing_address,
-    shipping_address: shippingAddress.value,
+    shipping_address: paymentData.shipping_address,
   });
 }
 </script>
@@ -51,8 +53,9 @@ function handleCheckout(paymentData) {
   </div>
 
   <!-- Has items in cart -->
-  <main v-else class="grid min-h-[calc(100vh-78px)] grid-cols-1 text-black lg:grid-cols-2">
+  <main v-else class="min-h[calc(100vh-78px)] grid grid-cols-1 text-black lg:grid-cols-2">
     <!-- Left -->
+    <!-- <div class="overflow-yauto"> -->
     <section class="flex justify-end border-r border-r-neutral-border2">
       <!-- Left container -->
       <div class="h-full w-full max-w-145 p-[3.8rem]">
@@ -83,33 +86,67 @@ function handleCheckout(paymentData) {
           </div>
         </div>
 
-        <!-- Delivery -->
-        <!-- <div class="mt-8">
-          <DeliveryForm @update:shipping="shippingAddress = $event" />
-        </div> -->
-
         <!-- Payment -->
         <PaymentForm
-          :shippingAddress="shippingAddress"
           :isLoading="isCheckingOut"
           :isEmptyCart="cartLength <= 0"
           @checkout="handleCheckout"
         />
       </div>
     </section>
+    <!-- </div> -->
     <!-- Right -->
-    <!-- Empty cart -->
-    <div
-      v-if="cartLength <= 0"
-      class="mx-auto mt-8 flex w-full max-w-145 flex-col items-center px-5 text-center text-xl md:px-0"
-    >
-      <p>Your cart is currently empty, you have nothing to checkout.</p>
-      <p>
-        Browse our
-        <RouterLink to="/collections/all" class="text-brand-primary underline">products</RouterLink>
-        to add items to your cart.
-      </p>
-    </div>
+    <!-- <div class="sticky right-0"> -->
+    <section class="sticky top-0 bg-[#fafafa]">
+      <!-- Empty cart -->
+      <div
+        v-if="cartLength <= 0"
+        class="mx-auto mt-8 flex w-full max-w-145 flex-col items-center px-5 text-center text-xl md:px-0"
+      >
+        <p>Your cart is currently empty, you have nothing to checkout.</p>
+        <p>
+          Browse our
+          <RouterLink to="/collections/all" class="text-brand-primary underline"
+            >products</RouterLink
+          >
+          to add items to your cart.
+        </p>
+      </div>
+
+      <section v-else class="max-w-122 p-9.5 text-sm">
+        <!-- Cart items -->
+        <ul class="max-h-74 space-y-5 overflow-y-auto">
+          <li v-for="item in cartData" :key="item.id" class="flex items-center justify-between">
+            <!-- Image -->
+            <div class="flex items-center gap-3">
+              <div
+                class="relative min-h-px shrink-0 basis-20 rounded-lg border-2 border-white bg-[#f5f5f5] pt-[20%]"
+              >
+                <img
+                  :src="item.image"
+                  :alt="item.name"
+                  class="absolute top-1/2 left-1/2 size-[70%] -translate-x-1/2 -translate-y-1/2 scale-110 object-contain transition-all duration-500 hover:scale-105"
+                />
+              </div>
+              <p>{{ item.name }}</p>
+            </div>
+
+            <!-- Price -->
+            <p>{{ formatCurrency(item.price) }}</p>
+          </li>
+        </ul>
+
+        <!-- Totals -->
+        <div class="mt-10 flex items-center justify-between text-lg">
+          <span class="font-semibold">Total:</span>
+          <span class="font-semibold">
+            <span class="mr-2 text-xs text-black/50">USD</span>
+            <span>{{ formatCurrency(totalAmt) }}</span>
+          </span>
+        </div>
+      </section>
+    </section>
+    <!-- </div> -->
   </main>
 </template>
 
